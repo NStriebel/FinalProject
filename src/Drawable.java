@@ -3,12 +3,16 @@ import java.awt.*;
 public class Drawable {
     private int xPosition;
     private int yPosition;
-    private int xVelocity;
-    private int yVelocity;
+    private double xVelocity;
+    private double yVelocity;
     private Color color;
 
-    public Drawable(int xPos, int yPos, int xVel, int yVel, Color col){
-
+    public Drawable(int xPos, int yPos, double xVel, double yVel, Color col){
+        this.xPosition = xPos;
+        this.yPosition = yPos;
+        this.xVelocity = xVel;
+        this.yVelocity = yVel;
+        this.color = col;
     }
 
     public int getxPosition() {
@@ -27,7 +31,7 @@ public class Drawable {
         this.yPosition = yPosition;
     }
 
-    public int getxVelocity() {
+    public double getxVelocity() {
         return xVelocity;
     }
 
@@ -35,7 +39,7 @@ public class Drawable {
         this.xVelocity = xVelocity;
     }
 
-    public int getyVelocity() {
+    public double getyVelocity() {
         return yVelocity;
     }
 

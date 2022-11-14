@@ -4,6 +4,10 @@ import java.util.Queue;
 import java.util.Set;
 
 public class Game {
+    //These will definitely change.
+    private final int BOARDWIDTH = 100;
+    private final int BOARDHEIGHT = 100;
+
     private int lives;
     private List<Drawable> gameObjects; //the walls are just giant bricks that get put in this List
     private Queue<Powerup> powerups;

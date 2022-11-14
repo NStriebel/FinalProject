@@ -2,8 +2,8 @@ import java.awt.*;
 
 public class Paddle extends Brick{
 
-    public Paddle(){
-        super(0,0,0,0,new Color(0,0,0));
+    public Paddle(int height, int width, int xPos, int yPos, Color col){
+        super(height,width,xPos,yPos,col);
     }
     //add functionality to catch powerups
     public void collide(Projectile incoming){
