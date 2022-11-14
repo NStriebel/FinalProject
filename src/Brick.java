@@ -40,7 +40,7 @@ public class Brick extends Drawable {
     /**
      * Determines whether this Brick is colliding with a given projectile in the current time step. If it detects a collision, it determines which side of the brick the ball collided with.
      * This method only has a certain window of detection. Be wary of clipping if the ball is moving very quickly.
-     * @param incoming is the projectile to check for a collision with this Brick.
+     * @param incoming the projectile to check for a collision with this Brick.
      * @return 0 if there is no collision, 1 if the collision is with the top of the brick, 2 if with the right, 3 if with the bottom, 4 if with the left
      */
     public int detectCollision(Projectile incoming){
@@ -71,6 +71,10 @@ public class Brick extends Drawable {
             return 0;
     }
 
-    //if it's a Ball, reflect it, if it's a powerup, let it pass through
-    public void collide(Projectile incoming){}
+    /**
+     * If a collision is detected between a brick and a projectile, call this method on the brick and send it the projectile to perform the collision operation. If a ball hits the top or bottom, invert the y-component of its velocity. If it hits the right or left, invert the x-component. Allow projectiles to pass through.
+     * @param incoming the projectile that
+     * @param collisionSide 1 for top, 2 for right, 3 for bottom, 4 for left
+     */
+    public void collide(Projectile incoming, int collisionSide){}
 }

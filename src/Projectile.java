@@ -1,5 +1,8 @@
 import java.awt.*;
 
+/**
+ * This class should never be instantiated. It exists so that balls and powerups can be referred to with polymorphism.
+ */
 public class Projectile extends Drawable {
     private int radius;
 

@@ -1,5 +1,8 @@
 import java.awt.*;
 
+/**
+ * Anything that will be drawn in the GUI is a drawable object
+ */
 public class Drawable {
     private int xPosition;
     private int yPosition;

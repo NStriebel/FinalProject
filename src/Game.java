@@ -3,6 +3,9 @@ import java.util.Map;
 import java.util.Queue;
 import java.util.Set;
 
+/**
+ * Calls
+ */
 public class Game {
     //These will definitely change.
     private final int BOARDWIDTH = 100;
@@ -10,12 +13,18 @@ public class Game {
 
     private int lives;
     private List<Drawable> gameObjects; //the walls are just giant bricks that get put in this List
-    private Queue<Powerup> powerups;
-    private Map<Brick, Integer> brickDurabilities;
+    private Queue<Powerup> powerups; //the powerups in the queue are not drawn or updated. Every once in a while, the update method removes them from the queue and adds them to gameObjects
+    private Map<Brick, Integer> bricks;
 
+    /**
+     * Initialize the walls, paddle, ball, bricks, and queue of powerups. Eventually, we may do this with file input for multiple board setups.
+     */
     public void setup(){}
 
-    public void update() {//loop through bricks and objects, move things with velocity and check for collisions
+    /**
+     * Loops through gameObjects and updates everything based on its velocity. It must check each projectile for a collision with each brick.
+     */
+    public void update() {//loop through bricks and gameObjects, move things with velocity and check for collisions
         //looping through bricks
         //if thisBrick.isColliding(){
         //          thisBrick.collide()
@@ -29,10 +38,15 @@ public class Game {
         //}
     }
 
+    /**
+     * Draws all of the components of the game on the GUI. This may require additional helper methods or classes.
+     */
     public void drawFrame(){
         //loop through gameObjects and brickDurabilities and draw everything
     }
 
-    //run a loop to update the board, then draw the update until the game ends
+    /**
+     * Repeatedly draws the board, updates the game state while listening for keyboard input and adjusting the paddle's velocity accordingly. This will require using threads, and it may require additional helper methods.
+     */
     public void main(){}
 }
