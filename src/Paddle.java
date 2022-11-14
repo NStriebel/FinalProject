@@ -15,7 +15,20 @@ public class Paddle extends Brick{
      * @param collisionSide 1 for top, 2 for right, 3 for bottom, 4 for left
      */
     public void collide(Projectile incoming, int collisionSide){
+        if(incoming instanceof Ball){
+            //compute the magnitude of the ball's velocity
+            double ballSpeed = Math.sqrt(incoming.getxVelocity()*incoming.getxVelocity()+incoming.getyVelocity()*incoming.getyVelocity());
 
+            double dY = incoming.getyPosition() - this.getyPosition();
+            double dX = incoming.getxPosition() - this.getxPosition();
+            double reflectAngle = Math.atan(dY/dX);
+
+            double VxFinal = ballSpeed*Math.cos(reflectAngle);
+            double VyFinal = ballSpeed*Math.sin(reflectAngle);
+
+            incoming.setxVelocity(VxFinal);
+            incoming.setyVelocity(VyFinal);
+        }
     }
 
     //This method is not needed in this class. Paddle veloctiy adjustments can be done in the update function using Drawable's getter and setter methods for velocity.
