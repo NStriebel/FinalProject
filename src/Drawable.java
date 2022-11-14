@@ -7,6 +7,10 @@ public class Drawable {
     private int yVelocity;
     private Color color;
 
+    public Drawable(int xPos, int yPos, int xVel, int yVel, Color col){
+
+    }
+
     public int getxPosition() {
         return xPosition;
     }
