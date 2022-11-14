@@ -23,8 +23,11 @@ public class Paddle extends Brick{
             double dX = incoming.getxPosition() - this.getxPosition();
             double reflectAngle = Math.atan(dY/dX);
 
-            double VxFinal = ballSpeed*Math.cos(reflectAngle);
-            double VyFinal = ballSpeed*Math.sin(reflectAngle);
+            double VyFinal = -1*Math.abs(ballSpeed*Math.sin(reflectAngle)); //the paddle always sends the ball up
+            double VxFinal = Math.abs(ballSpeed*Math.cos(reflectAngle)); //by default, send the ball right
+            if(incoming.getxPosition() < this.getxPosition()){//if the ball is on the left side of the paddle, send it left
+                VxFinal *= -1;
+            }
 
             incoming.setxVelocity(VxFinal);
             incoming.setyVelocity(VyFinal);
