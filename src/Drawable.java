@@ -38,7 +38,7 @@ public class Drawable {
         return xVelocity;
     }
 
-    public void setxVelocity(int xVelocity) {
+    public void setxVelocity(double xVelocity) {
         this.xVelocity = xVelocity;
     }
 
@@ -46,7 +46,7 @@ public class Drawable {
         return yVelocity;
     }
 
-    public void setyVelocity(int yVelocity) {
+    public void setyVelocity(double yVelocity) {
         this.yVelocity = yVelocity;
     }
 
