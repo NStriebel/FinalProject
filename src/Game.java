@@ -1,25 +1,78 @@
+import java.awt.*;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.*;
 import java.util.List;
-import java.util.Map;
-import java.util.Queue;
-import java.util.Set;
 
 /**
  * Calls
  */
 public class Game {
-    //These will definitely change.
-    private final int BOARDWIDTH = 100;
-    private final int BOARDHEIGHT = 100;
-
     private int lives;
     private List<Drawable> gameObjects; //the walls are just giant bricks that get put in this List
     private Queue<Powerup> powerups; //the powerups in the queue are not drawn or updated. Every once in a while, the update method removes them from the queue and adds them to gameObjects
     private Map<Brick, Integer> bricks; //stores all the bricks with their durabilities
 
     /**
-     * Initialize the walls, paddle, ball, bricks, and queue of powerups. Eventually, we may do this with file input for multiple board setups.
+     * Initialize the walls, paddle, ball, bricks, and queue of powerups based on input from a file.
+     * Every line begins with a string of letters for human readability
+     * The first four lines of the file contain the space-separated information needed to initialize the walls, int height, int width, double xPosition, double yPosition.
+     * The fifth line contains the same information for the paddle
+     * The sixth line that contains only an integer, which we will call n, which represents the number of bricks to be initialized
+     * After the sixth line are n lines, one for each brick. They contain the same parameters as the walls and paddle, with the addition of the brick's starting durability as an int
+     * After those is another line with only a number, m, to represent the number of different types of powerups to be generated
+     * For the next m lines, the line contains only the name of the powerup to be included. If an invalid name is entered, powerups with no effect will be generated.
+     * Then is another line with the number of balls to be initialized, p
+     * This is followed by p lines, one for each ball with int radius, double xPosition, double yPosition, double xVelocity, double yVelocity
      */
-    public void setup(){}
+    public void setup() throws FileNotFoundException {
+        lives = 3;
+        gameObjects = new ArrayList<>();
+        powerups = new LinkedList<>();
+        bricks = new HashMap<>();
+
+
+        Scanner console = new Scanner(System.in);
+        System.out.print("Enter the name of the board file: ");
+        String filename = console.next();
+
+        File boardFile = new File(filename);
+        Scanner fileIn = new Scanner(boardFile);
+        Scanner lineReader;
+
+        //read in the walls
+        for(int x=0; x<4;x++){
+            lineReader = new Scanner(fileIn.nextLine());
+            lineReader.next();//skip the name at the beginning of the line
+            gameObjects.add(new Brick(lineReader.nextInt(), lineReader.nextInt(), lineReader.nextDouble(), lineReader.nextDouble(), new Color(1, 21, 241, 255)));
+        }
+
+        //read in the paddle
+        lineReader = new Scanner(fileIn.nextLine());
+        lineReader.next(); //skip the name
+        gameObjects.add(new Paddle(lineReader.nextInt(), lineReader.nextInt(), lineReader.nextDouble(), lineReader.nextDouble(), new Color(28, 0, 150, 255)));
+
+        int numBricks = Integer.parseInt(fileIn.nextLine());
+        for(int i=0; i<numBricks; i++){
+            lineReader = new Scanner(fileIn.nextLine());
+            lineReader.next(); //skip the name
+            bricks.put(new Brick(lineReader.nextInt(), lineReader.nextInt(), lineReader.nextDouble(), lineReader.nextDouble(), new Color(248, 3, 24, 255)), lineReader.nextInt());
+        }
+
+        //TODO add a more sophisticated implementation with more randomness
+        int numPowers = Integer.parseInt(fileIn.nextLine());
+        for(int i=0; i<numPowers; i++){
+            String type = fileIn.nextLine();
+            powerups.add(new Powerup(type, 0, 25, 5));
+        }
+
+        int numBalls = Integer.parseInt(fileIn.nextLine());
+        for(int i=0; i<numBalls; i++){
+            lineReader = new Scanner(fileIn.nextLine());
+            lineReader.next(); //skip the name
+            gameObjects.add(new Ball(lineReader.nextInt(), lineReader.nextDouble(), lineReader.nextDouble(), lineReader.nextDouble(),lineReader.nextDouble()));
+        }
+    }
 
     /**
      * Loops through gameObjects and updates everything based on its velocity. It must check each projectile for a collision with each brick.
@@ -40,7 +93,7 @@ public class Game {
                 if(thisObject instanceof Projectile){
                     int collisionCode = thisBrick.detectCollision((Projectile)thisObject);
                     if(collisionCode > 0){ //if they actually collide
-                        thisBrick.collide((Projectile)thisObject, collisionCode);
+                        thisBrick.collide((Projectile)thisObject, collisionCode);// TODO make sure this calls the paddle collide method if the Brick is a paddle
                         bricks.put(thisBrick, bricks.get(thisBrick)-1);//decrease the
 
                         if(thisObject instanceof Powerup && thisBrick instanceof Paddle){
