@@ -5,7 +5,7 @@ import java.awt.*;
  */
 public class Paddle extends Brick{
 
-    public Paddle(int height, int width, int xPos, int yPos, Color col){
+    public Paddle(int height, int width, double xPos, double yPos, Color col){
         super(height,width,xPos,yPos,col);
     }
 

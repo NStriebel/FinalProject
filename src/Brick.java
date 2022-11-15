@@ -16,7 +16,7 @@ public class Brick extends Drawable {
      * @param yPos the vertical position of the Brick's center, with down being the positive y direction
      * @param color the starting color of this brick
      */
-    public Brick(int height, int width, int xPos, int yPos, Color color){
+    public Brick(int height, int width, double xPos, double yPos, Color color){
         super(xPos,yPos,0,0, color);
         this.height = height;
         this.width = width;
@@ -45,10 +45,10 @@ public class Brick extends Drawable {
      */
     public int detectCollision(Projectile incoming){
         //remember that down is the positive y direction
-        int brickTop = this.getyPosition() - (this.height / 2);
-        int brickBottom = this.getyPosition() + (this.height / 2);
-        int brickLeft = this.getxPosition() - (this.width / 2);
-        int brickRight = this.getxPosition() + (this.width / 2);
+        double brickTop = this.getyPosition() - (this.height / 2);
+        double brickBottom = this.getyPosition() + (this.height / 2);
+        double brickLeft = this.getxPosition() - (this.width / 2);
+        double brickRight = this.getxPosition() + (this.width / 2);
 
         //if the distance from any edge of the brick to the center of the ball is less than the radius, it's a collision
         if(incoming.getxPosition() >= brickLeft && incoming.getxPosition() <= brickRight){

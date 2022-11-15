@@ -25,6 +25,10 @@ public class Game {
      * Loops through gameObjects and updates everything based on its velocity. It must check each projectile for a collision with each brick.
      */
     public void update() {//loop through bricks and gameObjects, move things with velocity and check for collisions
+        for(Drawable thisObject : gameObjects){
+            thisObject.setxPosition(thisObject.getxPosition()+thisObject.getxVelocity());
+        }
+
         //looping through bricks
         //if thisBrick.isColliding(){
         //          thisBrick.collide()

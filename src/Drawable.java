@@ -4,13 +4,13 @@ import java.awt.*;
  * Anything that will be drawn in the GUI is a drawable object
  */
 public class Drawable {
-    private int xPosition;
-    private int yPosition;
+    private double xPosition;
+    private double yPosition;
     private double xVelocity;
     private double yVelocity;
     private Color color;
 
-    public Drawable(int xPos, int yPos, double xVel, double yVel, Color col){
+    public Drawable(double xPos, double yPos, double xVel, double yVel, Color col){
         this.xPosition = xPos;
         this.yPosition = yPos;
         this.xVelocity = xVel;
@@ -18,19 +18,19 @@ public class Drawable {
         this.color = col;
     }
 
-    public int getxPosition() {
+    public double getxPosition() {
         return xPosition;
     }
 
-    public void setxPosition(int xPosition) {
+    public void setxPosition(double xPosition) {
         this.xPosition = xPosition;
     }
 
-    public int getyPosition() {
+    public double getyPosition() {
         return yPosition;
     }
 
-    public void setyPosition(int yPosition) {
+    public void setyPosition(double yPosition) {
         this.yPosition = yPosition;
     }
 

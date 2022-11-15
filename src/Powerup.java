@@ -14,7 +14,7 @@ public class Powerup extends Projectile{
      * @param speed the speed at which the powerup falls. This has no horizontal component.
      */
     public Powerup(String type, int xMin, int xMax, double speed){
-        super(0, xMin + (int)((xMax-xMin) * Math.random()), 0, 0, speed, new Color(0,0,0));
+        super(0, xMin + (xMax-xMin) * Math.random(), 0, 0, speed, new Color(0,0,0));
 
         this.type = type;
 
