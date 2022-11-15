@@ -17,7 +17,7 @@ public class Game {
      * Initialize the walls, paddle, ball, bricks, and queue of powerups based on input from a file.
      * Every line begins with a string of letters for human readability
      * The first four lines of the file contain the space-separated information needed to initialize the walls, int height, int width, double xPosition, double yPosition.
-     * The fifth line contains the same information for the paddle
+     * The fifth line contains the same information for the paddle, with the addition of two additional integers for the left and right boundaries of the play area
      * The sixth line that contains only an integer, which we will call n, which represents the number of bricks to be initialized
      * After the sixth line are n lines, one for each brick. They contain the same parameters as the walls and paddle, with the addition of the brick's starting durability as an int
      * After those is another line with only a number, m, to represent the number of different types of powerups to be generated
@@ -45,7 +45,7 @@ public class Game {
         //read in the paddle
         lineReader = new Scanner(fileIn.nextLine());
         lineReader.next(); //skip the name
-        gameObjects.add(new Paddle(lineReader.nextInt(), lineReader.nextInt(), lineReader.nextDouble(), lineReader.nextDouble(), new Color(28, 0, 150, 255)));
+        gameObjects.add(new Paddle(lineReader.nextInt(), lineReader.nextInt(), lineReader.nextDouble(), lineReader.nextDouble(), new Color(28, 0, 150, 255), lineReader.nextInt(), lineReader.nextInt()));
 
         int numBricks = Integer.parseInt(fileIn.nextLine());
         for(int i=0; i<numBricks; i++){

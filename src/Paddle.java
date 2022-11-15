@@ -4,9 +4,13 @@ import java.awt.*;
  * This class represents the paddle that moves back and forth to keep the ball in play.
  */
 public class Paddle extends Brick{
+    private final int LEFTBOUND;
+    private final int RIGHTBOUND;
 
-    public Paddle(int height, int width, double xPos, double yPos, Color col){
+    public Paddle(int height, int width, double xPos, double yPos, Color col, int left, int right){
         super(height,width,xPos,yPos,col);
+        LEFTBOUND = left;
+        RIGHTBOUND = right;
     }
 
     /**
@@ -33,6 +37,35 @@ public class Paddle extends Brick{
             incoming.setyVelocity(VyFinal);
         }
     }
+
+    /**
+     * this method does nothing, because the paddle should never move up and down
+     * @param yPos
+     */
+    @Override
+    public void setyPosition(double yPos){
+
+    }
+
+    /**
+     * only update the x position of the paddle within the bounds
+     */
+    @Override
+    public void setxPosition(double xPos){
+                int minX = LEFTBOUND + this.getWidth()/2;
+        int maxX = RIGHTBOUND - this.getWidth()/2;
+
+        if(xPos < minX){
+            super.setxPosition(minX);
+        }
+        else if(xPos > maxX){
+            super.setxPosition(maxX);
+        }
+        else{
+            super.setxPosition(xPos);
+        }
+    }
+
 
     //This method is not needed in this class. Paddle veloctiy adjustments can be done in the update function using Drawable's getter and setter methods for velocity.
     //check to see which keys are pressed and set velocity as appropriate.
