@@ -45,10 +45,10 @@ public class Brick extends Drawable {
      */
     public int detectCollision(Projectile incoming){
         //remember that down is the positive y direction
-        double brickTop = this.getyPosition() - (this.height / 2);
-        double brickBottom = this.getyPosition() + (this.height / 2);
-        double brickLeft = this.getxPosition() - (this.width / 2);
-        double brickRight = this.getxPosition() + (this.width / 2);
+        double brickTop = this.getyPosition() - (this.height / 2.0);
+        double brickBottom = this.getyPosition() + (this.height / 2.0);
+        double brickLeft = this.getxPosition() - (this.width / 2.0);
+        double brickRight = this.getxPosition() + (this.width / 2.0);
 
         //if the distance from any edge of the brick to the center of the ball is less than the radius, it's a collision
         if(incoming.getxPosition() >= brickLeft && incoming.getxPosition() <= brickRight){
