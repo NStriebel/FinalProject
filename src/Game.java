@@ -77,7 +77,7 @@ public class Game {
     /**
      * Loops through gameObjects and updates everything based on its velocity. It must check each projectile for a collision with each brick.
      */
-    public void update() {//loop through bricks and gameObjects, move things with velocity and check for collisions
+    public void update() {
         //Update all objects' positions
         for(Drawable thisObject : gameObjects){
             thisObject.setxPosition(thisObject.getxPosition()+thisObject.getxVelocity());
@@ -88,7 +88,8 @@ public class Game {
             }
         }
 
-        for(Brick thisBrick : bricks.keySet()){
+        //loop through all the bricks looping for collisions
+        for(Brick thisBrick : bricks.keySet()){//TODO figure out the ConcurrentModificationException
             for(Drawable thisObject : gameObjects){
                 if(thisObject instanceof Projectile){
                     int collisionCode = thisBrick.detectCollision((Projectile)thisObject);
@@ -103,6 +104,7 @@ public class Game {
                 }
             }
 
+            //remove bricks whose durability is gone. I think this is causing problems.
             if(bricks.get(thisBrick) <= 0){
                 bricks.remove(thisBrick);
             }
