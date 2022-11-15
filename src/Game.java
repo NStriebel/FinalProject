@@ -25,16 +25,11 @@ public class Game {
      * Then is another line with the number of balls to be initialized, p
      * This is followed by p lines, one for each ball with int radius, double xPosition, double yPosition, double xVelocity, double yVelocity
      */
-    public void setup() throws FileNotFoundException {
+    public Game(String filename) throws FileNotFoundException {
         lives = 3;
         gameObjects = new ArrayList<>();
         powerups = new LinkedList<>();
         bricks = new HashMap<>();
-
-
-        Scanner console = new Scanner(System.in);
-        System.out.print("Enter the name of the board file: ");
-        String filename = console.next();
 
         File boardFile = new File(filename);
         Scanner fileIn = new Scanner(boardFile);
@@ -88,14 +83,16 @@ public class Game {
             }
         }
 
-        //loop through all the bricks looping for collisions
+        //loop through all the bricks looking for collisions.
+        //take note of which bricks need to be removed
+        List<Brick> toRemove = new LinkedList<>();
         for(Brick thisBrick : bricks.keySet()){//TODO figure out the ConcurrentModificationException
             for(Drawable thisObject : gameObjects){
                 if(thisObject instanceof Projectile){
                     int collisionCode = thisBrick.detectCollision((Projectile)thisObject);
                     if(collisionCode > 0){ //if they actually collide
                         thisBrick.collide((Projectile)thisObject, collisionCode);// TODO make sure this calls the paddle collide method if the Brick is a paddle
-                        bricks.put(thisBrick, bricks.get(thisBrick)-1);//decrease the
+                        bricks.put(thisBrick, bricks.get(thisBrick)-1);//decrease the durability
 
                         if(thisObject instanceof Powerup && thisBrick instanceof Paddle){
                             applyPowerup(((Powerup)thisObject).getType()); //if a powerup collides with the paddle, apply the powerup's effect.
@@ -106,20 +103,14 @@ public class Game {
 
             //remove bricks whose durability is gone. I think this is causing problems.
             if(bricks.get(thisBrick) <= 0){
-                bricks.remove(thisBrick);
+                toRemove.add(thisBrick);
             }
         }
-        //looping through bricks
-        //if thisBrick.isColliding(){
-        //          thisBrick.collide()
-        //          bricks.put(thisBrick, bricks.get(thisBrick)-1)
-        //}
-
-
-        //while looking for collisions, if the paddle hits a powerup, get its name, and do something
-        //if(powerup.name.equals("ExtraLife")){
-        //  lives++
-        //}
+        //Java doesn't like it when you modify a collection while looping through it
+        //here's the workaround for removing bricks
+        for(Brick thisBrick : toRemove){
+            bricks.remove(thisBrick);
+        }
     }
 
     /**
@@ -136,7 +127,7 @@ public class Game {
      * Draws all of the components of the game on the GUI. This may require additional helper methods or classes.
      */
     public void drawFrame(){
-        //loop through gameObjects and brickDurabilities and draw everything
+        //loop through gameObjects and bricks and draw everything
     }
 
     /**
