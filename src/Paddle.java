@@ -40,7 +40,7 @@ public class Paddle extends Brick{
 
     /**
      * this method does nothing, because the paddle should never move up and down
-     * @param yPos
+     * @param yPos only included to correctly override the method from Drawable
      */
     @Override
     public void setyPosition(double yPos){
@@ -67,7 +67,7 @@ public class Paddle extends Brick{
     }
 
 
-    //This method is not needed in this class. Paddle veloctiy adjustments can be done in the update function using Drawable's getter and setter methods for velocity.
+    //This method is not needed in this class. Paddle velocity adjustments can be done in the update function using Drawable's getter and setter methods for velocity.
     //check to see which keys are pressed and set velocity as appropriate.
     //public void move(){}
 }

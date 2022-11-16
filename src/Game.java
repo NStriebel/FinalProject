@@ -5,7 +5,7 @@ import java.util.*;
 import java.util.List;
 
 /**
- * Calls
+ * Represents a game of breakout.
  */
 public class Game {
     private int lives;
