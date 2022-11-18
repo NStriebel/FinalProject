@@ -15,15 +15,15 @@ public class Game {
 
     /**
      * Initialize the walls, paddle, ball, bricks, and queue of powerups based on input from a file.
-     * Every line begins with a string of letters for human readability
+     * Every line begins with a string of letters for human readability.
      * The first four lines of the file contain the space-separated information needed to initialize the walls, int height, int width, double xPosition, double yPosition.
-     * The fifth line contains the same information for the paddle, with the addition of two additional integers for the left and right boundaries of the play area
-     * The sixth line that contains only an integer, which we will call n, which represents the number of bricks to be initialized
-     * After the sixth line are n lines, one for each brick. They contain the same parameters as the walls and paddle, with the addition of the brick's starting durability as an int
-     * After those is another line with only a number, m, to represent the number of different types of powerups to be generated
+     * The fifth line contains the same information for the paddle, with the addition of two additional integers for the left and right boundaries of the play area.
+     * The sixth line that contains only an integer, which we will call n, which represents the number of bricks to be initialized.
+     * After the sixth line are n lines, one for each brick. They contain the same parameters as the walls and paddle, with the addition of the brick's starting durability as an int.
+     * After those is another line with only a number, m, to represent the number of different types of powerups to be generated.
      * For the next m lines, the line contains only the name of the powerup to be included. If an invalid name is entered, powerups with no effect will be generated.
-     * Then is another line with the number of balls to be initialized, p
-     * This is followed by p lines, one for each ball with int radius, double xPosition, double yPosition, double xVelocity, double yVelocity
+     * Then is another line with the number of balls to be initialized, p.
+     * This is followed by p lines, one for each ball with int radius, double xPosition, double yPosition, double xVelocity, double yVelocity.
      */
     public Game(String filename) throws FileNotFoundException {
         lives = 3;
@@ -78,7 +78,7 @@ public class Game {
             thisObject.setxPosition(thisObject.getxPosition()+thisObject.getxVelocity());
             thisObject.setyPosition(thisObject.getyPosition()+thisObject.getyVelocity());
 
-            if(thisObject instanceof Brick){//temporarily add paddle and walls to bricks Map to check them for collisions
+            if(thisObject instanceof Brick){//temporarily add paddle and walls to "bricks" so as to check them for collisions
                 bricks.put((Brick)thisObject, 0);//setting their durability to zero means that they will be removed from the brick array before this method is done.
             }
         }
@@ -101,7 +101,7 @@ public class Game {
                 }
             }
 
-            //remove bricks whose durability is gone. I think this is causing problems.
+            //Note the bricks whose durability is gone in order to remove them once this loop is done
             if(bricks.get(thisBrick) <= 0){
                 toRemove.add(thisBrick);
             }
