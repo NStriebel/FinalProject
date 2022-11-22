@@ -13,6 +13,8 @@ public class Game {
     private Queue<Powerup> powerups; //the powerups in the queue are not drawn or updated. Every once in a while, the update method removes them from the queue and adds them to gameObjects
     private Map<Brick, Integer> bricks; //stores all the bricks with their durabilities
 
+    private MyFrame board;
+
     /**
      * Initialize the walls, paddle, ball, bricks, and queue of powerups based on input from a file.
      * Every line begins with a string of letters for human readability.
@@ -30,6 +32,7 @@ public class Game {
         gameObjects = new ArrayList<>();
         powerups = new LinkedList<>();
         bricks = new HashMap<>();
+        board = new MyFrame();
 
         File boardFile = new File(filename);
         Scanner fileIn = new Scanner(boardFile);
