@@ -162,6 +162,14 @@ public class Game implements KeyListener {
             }
 
         }
+
+        for (Brick key : bricks.keySet()){
+            JLabel brickLabel = new JLabel();
+            brickLabel.setBackground(key.getColor());
+            brickLabel.setOpaque(true);
+            brickLabel.setBounds((int)key.getxPosition(), (int)key.getyPosition(), key.getWidth(), key.getHeight());
+            board.add(brickLabel);
+        }
     }
 
     /**
