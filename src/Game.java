@@ -160,6 +160,13 @@ public class Game implements KeyListener {
                 ballLabel.setBounds((int) gameObjects.get(i).getxPosition(), (int) gameObjects.get(i).getyPosition(), (((Ball) gameObjects.get(i)).getRadius()), ((Ball) gameObjects.get(i)).getRadius());
                 board.add(ballLabel);
             }
+            if (gameObjects.get(i) instanceof Powerup){
+                JLabel powerLabel = new JLabel();
+                powerLabel.setBackground(gameObjects.get(i).getColor());
+                powerLabel.setOpaque(true);
+                powerLabel.setBounds((int)gameObjects.get(i).getxPosition(), (int)gameObjects.get(i).getyPosition(), 2, 2);
+                board.add(powerLabel);
+            }
 
         }
 
