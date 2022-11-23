@@ -152,6 +152,12 @@ public class Game implements KeyListener {
                 paddleLabel.setBounds((int) gameObjects.get(i).getxPosition(), (int) gameObjects.get(i).getyPosition(), ((Paddle) gameObjects.get(i)).getWidth(), ((Paddle) gameObjects.get(i)).getHeight());
                 board.add(paddleLabel);
             }
+            if (gameObjects.get(i) instanceof Ball){
+                JLabel ballLabel = new JLabel();
+                ballLabel.setBackground(gameObjects.get(i).getColor());
+                ballLabel.setOpaque(true);
+                ballLabel.setBounds((int) gameObjects.get(i).getxPosition(), (int) gameObjects.get(i).getyPosition(), (((Ball) gameObjects.get(i)).getRadius()), ((Ball) gameObjects.get(i)).getRadius());
+            }
 
         }
     }
