@@ -140,11 +140,19 @@ public class Game implements KeyListener {
 
         paddleLabel = new JLabel();
         for (int i = 0;i < gameObjects.size();i++){
+            if (gameObjects.get(i) instanceof Brick){
+                JLabel brickLabel = new JLabel();
+                brickLabel.setBackground(gameObjects.get(i).getColor());
+                brickLabel.setOpaque(true);
+                brickLabel.setBounds((int) gameObjects.get(i).getxPosition(), (int) gameObjects.get(i).getyPosition(), ((Brick) gameObjects.get(i)).getWidth(), ((Brick) gameObjects.get(i)).getHeight());
+            }
             if (gameObjects.get(i) instanceof Paddle){
                 paddleLabel.setBackground(gameObjects.get(i).getColor());
                 paddleLabel.setOpaque(true);
                 paddleLabel.setBounds((int) gameObjects.get(i).getxPosition(), (int) gameObjects.get(i).getyPosition(), ((Paddle) gameObjects.get(i)).getWidth(), ((Paddle) gameObjects.get(i)).getHeight());
+                board.add(paddleLabel);
             }
+
         }
     }
 
