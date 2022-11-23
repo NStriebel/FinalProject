@@ -16,7 +16,7 @@ public class Game implements KeyListener {
     private Queue<Powerup> powerups; //the powerups in the queue are not drawn or updated. Every once in a while, the update method removes them from the queue and adds them to gameObjects
     private Map<Brick, Integer> bricks; //stores all the bricks with their durabilities
 
-    private MyFrame board;
+    private static MyFrame board;
     private JLabel paddleLabel;
 
     /**
@@ -135,7 +135,6 @@ public class Game implements KeyListener {
      */
     public void drawFrame(){
         //loop through gameObjects and bricks and draw everything
-        board = new MyFrame();
         board.addKeyListener(this);
 
         paddleLabel = new JLabel();
@@ -182,7 +181,10 @@ public class Game implements KeyListener {
     /**
      * Repeatedly draws the board, updates the game state while listening for keyboard input and adjusting the paddle's velocity accordingly. This will require using threads, and it may require additional helper methods.
      */
-    public void main(){}
+    public static void main(String[] args){
+        board = new MyFrame();
+
+    }
 
     @Override
     public void keyTyped(KeyEvent e) {
