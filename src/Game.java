@@ -1,3 +1,4 @@
+import javax.swing.*;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
@@ -16,6 +17,7 @@ public class Game implements KeyListener {
     private Map<Brick, Integer> bricks; //stores all the bricks with their durabilities
 
     private MyFrame board;
+    private JLabel paddleLabel;
 
     /**
      * Initialize the walls, paddle, ball, bricks, and queue of powerups based on input from a file.
@@ -135,6 +137,15 @@ public class Game implements KeyListener {
         //loop through gameObjects and bricks and draw everything
         board = new MyFrame();
         board.addKeyListener(this);
+
+        paddleLabel = new JLabel();
+        for (int i = 0;i < gameObjects.size();i++){
+            if (gameObjects.get(i) instanceof Paddle){
+                paddleLabel.setBackground(gameObjects.get(i).getColor());
+                paddleLabel.setOpaque(true);
+                paddleLabel.setBounds((int) gameObjects.get(i).getxPosition(), (int) gameObjects.get(i).getyPosition(), ((Paddle) gameObjects.get(i)).getWidth(), ((Paddle) gameObjects.get(i)).getHeight());
+            }
+        }
     }
 
     /**
