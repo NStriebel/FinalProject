@@ -167,7 +167,7 @@ public class Game implements KeyListener {
             case 'a':
                 for (int i = 0;i < gameObjects.size(); i++){
                     if (gameObjects.get(i) instanceof Paddle){
-                        gameObjects.get(i).setxPosition(gameObjects.get(i).getxPosition() - 5);
+                        gameObjects.get(i).setxPosition(gameObjects.get(i).getxPosition() - 1);
                         break;
                     }
                 }
@@ -175,7 +175,7 @@ public class Game implements KeyListener {
             case 'd':
                 for (int i = 0;i < gameObjects.size(); i++){
                     if (gameObjects.get(i) instanceof Paddle){
-                        gameObjects.get(i).setxPosition(gameObjects.get(i).getxPosition() + 5);
+                        gameObjects.get(i).setxPosition(gameObjects.get(i).getxPosition() + 1);
                         break;
                     }
                 }
