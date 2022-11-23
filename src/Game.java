@@ -133,6 +133,8 @@ public class Game implements KeyListener {
      */
     public void drawFrame(){
         //loop through gameObjects and bricks and draw everything
+        board = new MyFrame();
+        board.addKeyListener(this);
     }
 
     /**
