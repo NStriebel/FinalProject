@@ -145,6 +145,7 @@ public class Game implements KeyListener {
                 brickLabel.setBackground(gameObjects.get(i).getColor());
                 brickLabel.setOpaque(true);
                 brickLabel.setBounds((int) gameObjects.get(i).getxPosition(), (int) gameObjects.get(i).getyPosition(), ((Brick) gameObjects.get(i)).getWidth(), ((Brick) gameObjects.get(i)).getHeight());
+                board.add(brickLabel);
             }
             if (gameObjects.get(i) instanceof Paddle){
                 paddleLabel.setBackground(gameObjects.get(i).getColor());
@@ -157,6 +158,7 @@ public class Game implements KeyListener {
                 ballLabel.setBackground(gameObjects.get(i).getColor());
                 ballLabel.setOpaque(true);
                 ballLabel.setBounds((int) gameObjects.get(i).getxPosition(), (int) gameObjects.get(i).getyPosition(), (((Ball) gameObjects.get(i)).getRadius()), ((Ball) gameObjects.get(i)).getRadius());
+                board.add(ballLabel);
             }
 
         }
