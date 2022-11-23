@@ -144,7 +144,24 @@ public class Game implements KeyListener {
 
     @Override
     public void keyTyped(KeyEvent e) {
-
+        switch (e.getKeyChar()){
+            case 'a':
+                for (int i = 0;i < gameObjects.size(); i++){
+                    if (gameObjects.get(i) instanceof Paddle){
+                        gameObjects.get(i).setxPosition(gameObjects.get(i).getxPosition() - 5);
+                        break;
+                    }
+                }
+                break;
+            case 'd':
+                for (int i = 0;i < gameObjects.size(); i++){
+                    if (gameObjects.get(i) instanceof Paddle){
+                        gameObjects.get(i).setxPosition(gameObjects.get(i).getxPosition() + 5);
+                        break;
+                    }
+                }
+               break;
+        }
     }
 
     @Override
