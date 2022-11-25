@@ -8,4 +8,4 @@ Brick 10 50 250 150 1
 1
 Extra Life
 1
-Ball 4 250 400 0 10
+Ball 4 250 250 0 1

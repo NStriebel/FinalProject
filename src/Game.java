@@ -11,7 +11,7 @@ import java.util.List;
  * Represents a game of breakout.
  */
 public class Game implements KeyListener {
-    private final int FRAMERATE = 10; //the number of frames to draw per second
+    private final int FRAMERATE = 5; //the number of frames to draw per second
     private final int FRAMETIME = (1/FRAMERATE) * 1000; //the number of milliseconds to draw a single frame
 
     private int lives;
