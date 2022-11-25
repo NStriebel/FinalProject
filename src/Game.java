@@ -17,6 +17,7 @@ public class Game implements KeyListener {
     private Map<Brick, Integer> bricks; //stores all the bricks with their durabilities
 
     private MyFrame board;
+    private JPanel contentPane;
     private JLabel paddleLabel;
 
     /**
@@ -36,7 +37,12 @@ public class Game implements KeyListener {
         gameObjects = new ArrayList<>();
         powerups = new LinkedList<>();
         bricks = new HashMap<>();
+
         board = new MyFrame();
+        contentPane = new JPanel(new BorderLayout());
+
+        board.setContentPane(contentPane);
+        board.addKeyListener(this);
 
         File boardFile = new File(filename);
         Scanner fileIn = new Scanner(boardFile);
@@ -135,7 +141,7 @@ public class Game implements KeyListener {
      */
     public void drawFrame(){
         //loop through gameObjects and bricks and draw everything
-        board.addKeyListener(this);
+        //board.addKeyListener(this);//moved this line to the constructor
 
         paddleLabel = new JLabel();
         for (int i = 0;i < gameObjects.size();i++){
@@ -144,27 +150,27 @@ public class Game implements KeyListener {
                 brickLabel.setBackground(gameObjects.get(i).getColor());
                 brickLabel.setOpaque(true);
                 brickLabel.setBounds((int) gameObjects.get(i).getxPosition(), (int) gameObjects.get(i).getyPosition(), ((Brick) gameObjects.get(i)).getWidth(), ((Brick) gameObjects.get(i)).getHeight());
-                board.add(brickLabel);
+                contentPane.add(brickLabel);
             }
-            if (gameObjects.get(i) instanceof Paddle){
+            /*if (gameObjects.get(i) instanceof Paddle){
                 paddleLabel.setBackground(gameObjects.get(i).getColor());
                 paddleLabel.setOpaque(true);
                 paddleLabel.setBounds((int) gameObjects.get(i).getxPosition(), (int) gameObjects.get(i).getyPosition(), ((Paddle) gameObjects.get(i)).getWidth(), ((Paddle) gameObjects.get(i)).getHeight());
-                board.add(paddleLabel);
-            }
+                contentPane.add(paddleLabel);
+            }*/ //Paddles are instances of Bricks, so this case should be covered by the previous if
             if (gameObjects.get(i) instanceof Ball){
                 JLabel ballLabel = new JLabel();
                 ballLabel.setBackground(gameObjects.get(i).getColor());
                 ballLabel.setOpaque(true);
                 ballLabel.setBounds((int) gameObjects.get(i).getxPosition(), (int) gameObjects.get(i).getyPosition(), (((Ball) gameObjects.get(i)).getRadius()), ((Ball) gameObjects.get(i)).getRadius());
-                board.add(ballLabel);
+                contentPane.add(ballLabel);
             }
             if (gameObjects.get(i) instanceof Powerup){
                 JLabel powerLabel = new JLabel();
                 powerLabel.setBackground(gameObjects.get(i).getColor());
                 powerLabel.setOpaque(true);
                 powerLabel.setBounds((int)gameObjects.get(i).getxPosition(), (int)gameObjects.get(i).getyPosition(), 2, 2);
-                board.add(powerLabel);
+                contentPane.add(powerLabel);
             }
 
         }
@@ -174,17 +180,19 @@ public class Game implements KeyListener {
             brickLabel.setBackground(key.getColor());
             brickLabel.setOpaque(true);
             brickLabel.setBounds((int)key.getxPosition(), (int)key.getyPosition(), key.getWidth(), key.getHeight());
-            board.add(brickLabel);
+            contentPane.add(brickLabel);
         }
+        board.setContentPane(contentPane);
     }
 
     /**
      * Repeatedly draws the board, updates the game state while listening for keyboard input and adjusting the paddle's velocity accordingly. This will require using threads, and it may require additional helper methods.
      */
-    public void main(String[] args){
+    public void main(){
         //board = new MyFrame(); //this line already exists in the constructor for Game
-        while (!bricks.isEmpty()){
+        while (!bricks.isEmpty() && lives > 0){
             drawFrame();
+            update();
         }
     }
 
