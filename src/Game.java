@@ -11,6 +11,9 @@ import java.util.List;
  * Represents a game of breakout.
  */
 public class Game implements KeyListener {
+    private final int FRAMERATE = 1; //the number of frames to draw per second
+    private final int FRAMETIME = (1/FRAMERATE) * 1000; //the number of milliseconds to draw a single frame
+
     private int lives;
     private List<Drawable> gameObjects; //the walls are just giant bricks that get put in this List
     private Queue<Powerup> powerups; //the powerups in the queue are not drawn or updated. Every once in a while, the update method removes them from the queue and adds them to gameObjects
@@ -64,7 +67,7 @@ public class Game implements KeyListener {
         for(int i=0; i<numBricks; i++){
             lineReader = new Scanner(fileIn.nextLine());
             lineReader.next(); //skip the name
-            bricks.put(new Brick(lineReader.nextInt(), lineReader.nextInt(), lineReader.nextDouble(), lineReader.nextDouble(), new Color(248, 3, 24, 255)), lineReader.nextInt());
+            bricks.put(new Brick(lineReader.nextInt(), lineReader.nextInt(), lineReader.nextDouble(), lineReader.nextDouble(), new Color(25, 72, 1, 255)), lineReader.nextInt());
         }
 
         //TODO add a more sophisticated implementation with more randomness
@@ -149,7 +152,11 @@ public class Game implements KeyListener {
                 JLabel brickLabel = new JLabel();
                 brickLabel.setBackground(gameObjects.get(i).getColor());
                 brickLabel.setOpaque(true);
-                brickLabel.setBounds((int) gameObjects.get(i).getxPosition(), (int) gameObjects.get(i).getyPosition(), ((Brick) gameObjects.get(i)).getWidth(), ((Brick) gameObjects.get(i)).getHeight());
+
+                Brick thisBrick = (Brick)gameObjects.get(i);
+                int topLeftX = (int)(thisBrick.getxPosition() - thisBrick.getWidth()/2);
+                int topLeftY = (int)(thisBrick.getyPosition() - thisBrick.getHeight()/2);
+                brickLabel.setBounds(topLeftX, topLeftY, ((Brick) gameObjects.get(i)).getWidth(), ((Brick) gameObjects.get(i)).getHeight());
                 contentPane.add(brickLabel);
             }
             /*if (gameObjects.get(i) instanceof Paddle){
@@ -179,7 +186,10 @@ public class Game implements KeyListener {
             JLabel brickLabel = new JLabel();
             brickLabel.setBackground(key.getColor());
             brickLabel.setOpaque(true);
-            brickLabel.setBounds((int)key.getxPosition(), (int)key.getyPosition(), key.getWidth(), key.getHeight());
+
+            int topLeftX = (int)(key.getxPosition() - key.getWidth()/2);
+            int topLeftY = (int)(key.getyPosition() - key.getHeight()/2);
+            brickLabel.setBounds(topLeftX, topLeftY, key.getWidth(), key.getHeight());
             contentPane.add(brickLabel);
         }
         board.setContentPane(contentPane);
@@ -190,9 +200,15 @@ public class Game implements KeyListener {
      */
     public void main(){
         //board = new MyFrame(); //this line already exists in the constructor for Game
+        long lastFrameTime = System.currentTimeMillis();
+
         while (!bricks.isEmpty() && lives > 0){
-            drawFrame();
-            update();
+            if(System.currentTimeMillis() - lastFrameTime > FRAMETIME) {
+                lastFrameTime = System.currentTimeMillis();
+
+                drawFrame();
+                update();
+            }
         }
     }
 

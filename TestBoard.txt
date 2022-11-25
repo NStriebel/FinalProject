@@ -1,11 +1,11 @@
-TopWall 4 58 25 -2
-RightWall 58 4 52 25
-LeftWall 58 4 -2 25
-BottomWall 4 58 25 52
-Paddle 2 5 25 45 0 50
+TopWall 50 500 250 25
+RightWall 500 50 475 250
+LeftWall 500 50 25 250
+BottomWall 50 500 250 475
+Paddle 10 50 250 450 50 450
 1
-Brick 2 4 25 5 1
+Brick 10 50 250 100 1
 1
 Extra Life
 1
-Ball 2 25 44 0 5
+Ball 4 250 400 0 10
