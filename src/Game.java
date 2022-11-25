@@ -182,7 +182,7 @@ public class Game implements KeyListener {
      * Repeatedly draws the board, updates the game state while listening for keyboard input and adjusting the paddle's velocity accordingly. This will require using threads, and it may require additional helper methods.
      */
     public void main(String[] args){
-        board = new MyFrame();
+        //board = new MyFrame(); //this line already exists in the constructor for Game
         while (!bricks.isEmpty()){
             drawFrame();
         }
