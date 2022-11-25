@@ -11,7 +11,7 @@ import java.util.List;
  * Represents a game of breakout.
  */
 public class Game implements KeyListener {
-    private final int FRAMERATE = 1; //the number of frames to draw per second
+    private final int FRAMERATE = 10; //the number of frames to draw per second
     private final int FRAMETIME = (1/FRAMERATE) * 1000; //the number of milliseconds to draw a single frame
 
     private int lives;
@@ -20,7 +20,6 @@ public class Game implements KeyListener {
     private Map<Brick, Integer> bricks; //stores all the bricks with their durabilities
 
     private MyFrame board;
-    private JPanel contentPane;
     private JLabel paddleLabel;
 
     /**
@@ -42,9 +41,6 @@ public class Game implements KeyListener {
         bricks = new HashMap<>();
 
         board = new MyFrame();
-        contentPane = new JPanel(new BorderLayout());
-
-        board.setContentPane(contentPane);
         board.addKeyListener(this);
 
         File boardFile = new File(filename);
@@ -146,7 +142,9 @@ public class Game implements KeyListener {
         //loop through gameObjects and bricks and draw everything
         //board.addKeyListener(this);//moved this line to the constructor
 
-        paddleLabel = new JLabel();
+        //paddleLabel = new JLabel();
+        JPanel contentPane = new JPanel(new BorderLayout());
+
         for (int i = 0;i < gameObjects.size();i++){
             if (gameObjects.get(i) instanceof Brick){
                 JLabel brickLabel = new JLabel();
@@ -193,6 +191,7 @@ public class Game implements KeyListener {
             contentPane.add(brickLabel);
         }
         board.setContentPane(contentPane);
+        board.show();
     }
 
     /**

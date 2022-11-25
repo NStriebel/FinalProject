@@ -4,7 +4,7 @@ LeftWall 500 50 25 250
 BottomWall 50 500 250 475
 Paddle 10 50 250 450 50 450
 1
-Brick 10 50 250 100 1
+Brick 10 50 250 150 1
 1
 Extra Life
 1
