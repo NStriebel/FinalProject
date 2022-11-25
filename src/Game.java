@@ -209,6 +209,17 @@ public class Game implements KeyListener {
                 update();
             }
         }
+
+        JPanel contentPane = new JPanel(new BorderLayout());
+        if(lives > 0){
+            contentPane.add(new JTextField("You win!"));
+
+        }
+        else{
+            contentPane.add(new JTextField("You lose :("));
+        }
+        board.setContentPane(contentPane);
+        board.show();
     }
 
     @Override
