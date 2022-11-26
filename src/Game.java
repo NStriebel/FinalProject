@@ -164,7 +164,7 @@ public class Game implements KeyListener {
                 paddleLabel.setOpaque(true);
                 paddleLabel.setBounds((int) gameObjects.get(i).getxPosition(), (int) gameObjects.get(i).getyPosition(), ((Paddle) gameObjects.get(i)).getWidth(), ((Paddle) gameObjects.get(i)).getHeight());
                 contentPane.add(paddleLabel);
-            }*/ //Paddles are instances of Bricks, so this case should be covered by the previous if
+            }*/ //Paddles are instances of Bricks, so this case should be covered by the previous if statement
             if (gameObjects.get(i) instanceof Ball){
                 JLabel ballLabel = new JLabel();
                 ballLabel.setBackground(gameObjects.get(i).getColor());
@@ -192,6 +192,13 @@ public class Game implements KeyListener {
             brickLabel.setBounds(topLeftX, topLeftY, key.getWidth(), key.getHeight());
             contentPane.add(brickLabel);
         }
+
+        JLabel background = new JLabel();
+        background.setBackground(new Color(80, 80, 80));
+        background.setOpaque(true);
+        background.setBounds(0, 0, 500, 500);//those 500s are the same value as the window height and width. TODO clean that up with a constant
+        contentPane.add(background);
+
         board.setContentPane(contentPane);
         board.show();
     }
@@ -218,7 +225,6 @@ public class Game implements KeyListener {
         JPanel contentPane = new JPanel(new BorderLayout());
         if(lives > 0){
             contentPane.add(new JTextField("You win!"));
-
         }
         else{
             contentPane.add(new JTextField("You lose :("));
