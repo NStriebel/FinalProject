@@ -11,8 +11,10 @@ import java.util.List;
  * Represents a game of breakout.
  */
 public class Game implements KeyListener {
-    private final int FRAMERATE = 5; //the number of frames to draw per second
+    private final int FRAMERATE = 60; //the number of frames to draw per second
     private final int FRAMETIME = (1/FRAMERATE) * 1000; //the number of milliseconds to draw a single frame
+    private final int TICKRATE = 5;
+    private final int TICKTIME = (1/TICKRATE) * 1000;
 
     private int lives;
     private List<Drawable> gameObjects; //the walls are just giant bricks that get put in this List
@@ -199,13 +201,16 @@ public class Game implements KeyListener {
      */
     public void main(){
         //board = new MyFrame(); //this line already exists in the constructor for Game
-        long lastFrameTime = System.currentTimeMillis();
+        long lastFrame = System.currentTimeMillis();
+        long lastTick = System.currentTimeMillis();
 
         while (!bricks.isEmpty() && lives > 0){
-            if(System.currentTimeMillis() - lastFrameTime > FRAMETIME) {
-                lastFrameTime = System.currentTimeMillis();
-
+            if(System.currentTimeMillis() - lastFrame > FRAMETIME) {
+                lastFrame = System.currentTimeMillis();
                 drawFrame();
+            }
+            if(System.currentTimeMillis() - lastTick > TICKTIME){
+                lastTick = System.currentTimeMillis();
                 update();
             }
         }
