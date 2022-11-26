@@ -2,7 +2,7 @@ TopWall 50 500 250 25
 RightWall 500 50 475 250
 LeftWall 500 50 25 250
 BottomWall 50 500 250 475
-Paddle 10 50 250 450 50 450
+Paddle 10 50 250 450 50 450 2
 1
 Brick 10 50 250 150 1
 1
