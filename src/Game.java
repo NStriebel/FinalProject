@@ -13,11 +13,11 @@ import java.util.List;
 public class Game implements KeyListener {
     private final int FRAMERATE = 60; //the number of frames to draw per second
     private final int FRAMETIME = (1/FRAMERATE) * 1000; //the number of milliseconds to draw a single frame
-    private final int TICKRATE = 5;
+    private final int TICKRATE = 4;
     private final int TICKTIME = (1/TICKRATE) * 1000;
 
     private int lives;
-    private int paddleSpeed;
+    private double paddleSpeed;
 
     private List<Drawable> gameObjects; //the walls are just giant bricks that get put in this List
     private Queue<Powerup> powerups; //the powerups in the queue are not drawn or updated. Every once in a while, the update method removes them from the queue and adds them to gameObjects
@@ -30,7 +30,7 @@ public class Game implements KeyListener {
      * Initialize the walls, paddle, ball, bricks, and queue of powerups based on input from a file.
      * Every line begins with a string of letters for human readability.
      * The first four lines of the file contain the space-separated information needed to initialize the walls, int height, int width, double xPosition, double yPosition.
-     * The fifth line contains the same information for the paddle, with the addition of three additional integers, two for the left and right boundaries of the play area and the third for the paddle's starting speed.
+     * The fifth line contains the same information for the paddle, with the addition of two additional integers and a double, the integers are for the left and right boundaries of the play area and the double is for the paddle's starting speed.
      * The sixth line that contains only an integer, which we will call n, which represents the number of bricks to be initialized.
      * After the sixth line are n lines, one for each brick. They contain the same parameters as the walls and paddle, with the addition of the brick's starting durability as an int.
      * After those is another line with only a number, m, to represent the number of different types of powerups to be generated.
@@ -62,7 +62,7 @@ public class Game implements KeyListener {
         lineReader = new Scanner(fileIn.nextLine());
         lineReader.next(); //skip the name
         gameObjects.add(new Paddle(lineReader.nextInt(), lineReader.nextInt(), lineReader.nextDouble(), lineReader.nextDouble(), new Color(28, 0, 150, 255), lineReader.nextInt(), lineReader.nextInt()));
-        paddleSpeed = lineReader.nextInt();
+        paddleSpeed = lineReader.nextDouble();
 
         int numBricks = Integer.parseInt(fileIn.nextLine());
         for(int i=0; i<numBricks; i++){
@@ -238,33 +238,60 @@ public class Game implements KeyListener {
 
     @Override
     public void keyTyped(KeyEvent e) {
-        switch (e.getKeyChar()){
+        /*switch (e.getKeyChar()){
             case 'a':
-                for (int i = 0;i < gameObjects.size(); i++){
-                    if (gameObjects.get(i) instanceof Paddle){
-                        gameObjects.get(i).setxPosition(gameObjects.get(i).getxPosition() - paddleSpeed);
+                for (Drawable thisObj : gameObjects){
+                    if (thisObj instanceof Paddle){
+                        thisObj.setxPosition(thisObj.getxPosition() - paddleSpeed);
                         break;
                     }
                 }
                 break;
             case 'd':
-                for (int i = 0;i < gameObjects.size(); i++){
-                    if (gameObjects.get(i) instanceof Paddle){
-                        gameObjects.get(i).setxPosition(gameObjects.get(i).getxPosition() + paddleSpeed);
+                for (Drawable thisObj : gameObjects){
+                    if (thisObj instanceof Paddle){
+                        thisObj.setxPosition(thisObj.getxPosition() + paddleSpeed);
                         break;
                     }
                 }
                break;
-        }
+        }*/
     }
 
     @Override
     public void keyPressed(KeyEvent e) {
-
+        switch (e.getKeyChar()){
+            case 'a':
+                for (Drawable thisObj : gameObjects){
+                    if (thisObj instanceof Paddle){
+                        thisObj.setxVelocity(-1*paddleSpeed);
+                        break;
+                    }
+                }
+                break;
+            case 'd':
+                for (Drawable thisObj : gameObjects){
+                    if (thisObj instanceof Paddle){
+                        thisObj.setxVelocity(paddleSpeed);
+                        break;
+                    }
+                }
+                break;
+        }
     }
 
     @Override
     public void keyReleased(KeyEvent e) {
-
+        switch (e.getKeyChar()){
+            case 'a':
+            case 'd':
+                for (Drawable thisObj : gameObjects){
+                    if (thisObj instanceof Paddle){
+                        thisObj.setxVelocity(0);
+                        break;
+                    }
+                }
+                break;
+        }
     }
 }
