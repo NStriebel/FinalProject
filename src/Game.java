@@ -16,7 +16,7 @@ public class Game implements KeyListener {
     private final int TICKRATE = 4;
     private final int TICKTIME = (1/TICKRATE) * 1000;
 
-    private int lives;
+    private static int lives;
     private double paddleSpeed;
 
     private List<Drawable> gameObjects; //the walls are just giant bricks that get put in this List
@@ -26,6 +26,7 @@ public class Game implements KeyListener {
     private MyFrame board;
     private JLabel paddleLabel;
 
+    //TODO update the javadoc to reflect the new input file format
     /**
      * Initialize the walls, paddle, ball, bricks, and queue of powerups based on input from a file.
      * Every line begins with a string of letters for human readability.
@@ -51,24 +52,25 @@ public class Game implements KeyListener {
         Scanner fileIn = new Scanner(boardFile);
         Scanner lineReader;
 
-        //read in the walls
-        for(int x=0; x<4;x++){
-            lineReader = new Scanner(fileIn.nextLine());
-            lineReader.next();//skip the name at the beginning of the line
-            gameObjects.add(new Brick(lineReader.nextInt(), lineReader.nextInt(), lineReader.nextDouble(), lineReader.nextDouble(), new Color(1, 21, 241, 255)));
-        }
-
-        //read in the paddle
-        lineReader = new Scanner(fileIn.nextLine());
-        lineReader.next(); //skip the name
-        gameObjects.add(new Paddle(lineReader.nextInt(), lineReader.nextInt(), lineReader.nextDouble(), lineReader.nextDouble(), new Color(28, 0, 150, 255), lineReader.nextInt(), lineReader.nextInt()));
-        paddleSpeed = lineReader.nextDouble();
-
+        //read in the bricks (including walls and paddle
         int numBricks = Integer.parseInt(fileIn.nextLine());
         for(int i=0; i<numBricks; i++){
             lineReader = new Scanner(fileIn.nextLine());
-            lineReader.next(); //skip the name
-            bricks.put(new Brick(lineReader.nextInt(), lineReader.nextInt(), lineReader.nextDouble(), lineReader.nextDouble(), new Color(25, 72, 1, 255)), lineReader.nextInt());
+            String brickType = lineReader.next();
+
+            if(brickType.equals("Paddle")){
+                gameObjects.add(new Paddle(lineReader.nextInt(), lineReader.nextInt(), lineReader.nextDouble(), lineReader.nextDouble(), new Color(28, 0, 150, 255), lineReader.nextInt(), lineReader.nextInt()));
+                paddleSpeed = lineReader.nextDouble();
+            }
+            else if(brickType.equals("Wall")){
+                gameObjects.add(new Brick(lineReader.nextInt(), lineReader.nextInt(), lineReader.nextDouble(), lineReader.nextDouble(), new Color(1, 21, 241, 255)));
+            }
+            else if(brickType.equals("BottomWall")){
+                gameObjects.add(new DeathBrick(lineReader.nextInt(), lineReader.nextInt(), lineReader.nextDouble(), lineReader.nextDouble(), new Color(0, 0, 0, 255)));
+            }
+            else {
+                bricks.put(new Brick(lineReader.nextInt(), lineReader.nextInt(), lineReader.nextDouble(), lineReader.nextDouble(), new Color(25, 72, 1, 255)), lineReader.nextInt());
+            }
         }
 
         //TODO add a more sophisticated implementation with more randomness
@@ -293,5 +295,9 @@ public class Game implements KeyListener {
                 }
                 break;
         }
+    }
+
+    public static void loseLife(){
+        lives--;
     }
 }
