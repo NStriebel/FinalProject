@@ -18,7 +18,7 @@ public class Powerup extends Projectile{
 
         this.type = type;
 
-        if(type.equals("Extra Life")){
+        if(type.equals("ExtraLife")){
             this.setColor(Color.RED);
         }
     }

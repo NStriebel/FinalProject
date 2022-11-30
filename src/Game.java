@@ -78,9 +78,10 @@ public class Game implements KeyListener {
 
         //TODO add a more sophisticated implementation with more randomness
         int numPowers = Integer.parseInt(fileIn.nextLine());
+        lineReader = new Scanner(fileIn.nextLine());
         for(int i=0; i<numPowers; i++){
-            String type = fileIn.nextLine();
-            powerups.add(new Powerup(type, 0, 25, 0.25));
+            String type = lineReader.next();
+            powerups.add(new Powerup(type, lineReader.nextInt(), lineReader.nextInt(), 0.25));
         }
 
         int numBalls = Integer.parseInt(fileIn.nextLine());
