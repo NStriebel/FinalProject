@@ -8,6 +8,8 @@ public class DeathBrick extends Brick{
     @Override
     public void collide(Projectile incoming, int collisionSide){
         super.collide(incoming, collisionSide);
-        Game.loseLife();
+        if(incoming instanceof Ball) {
+            Game.loseLife();
+        }
     }
 }
