@@ -115,7 +115,10 @@ public class Game implements KeyListener {
                     int collisionCode = thisBrick.detectCollision((Projectile)thisObject);
                     if(collisionCode > 0){ //if they actually collide
                         thisBrick.collide((Projectile)thisObject, collisionCode);// TODO make sure this calls the paddle collide method if the Brick is a paddle
-                        bricks.put(thisBrick, bricks.get(thisBrick)-1);//decrease the durability
+
+                        if(thisObject instanceof Ball) {
+                            bricks.put(thisBrick, bricks.get(thisBrick) - 1);//decrease the durability
+                        }
 
                         if(thisObject instanceof Powerup && thisBrick instanceof Paddle){
                             applyPowerup(((Powerup)thisObject).getType()); //if a powerup collides with the paddle, apply the powerup's effect.
