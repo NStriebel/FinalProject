@@ -12,7 +12,7 @@ public class Main {
             myGame.main();
         }
         catch (FileNotFoundException e){
-            System.out.println("That file name was not found.");
+            System.out.println("That file was not found.");
         }
         catch(Exception e){
 

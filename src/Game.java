@@ -13,20 +13,21 @@ import java.util.List;
 public class Game implements KeyListener {
     private final int FRAMERATE = 60; //the number of frames to draw per second
     private final int FRAMETIME = (1/FRAMERATE) * 1000; //the number of milliseconds to draw a single frame
-    private final int TICKRATE = 4;
+    private final int TICKRATE = 50;
     private final int TICKTIME = (1/TICKRATE) * 1000;
 
     private static int lives;
     private double paddleSpeed;
 
     private List<Drawable> gameObjects; //the walls are just giant bricks that get put in this List
+    //TODO implement powerups
     private Queue<Powerup> powerups; //the powerups in the queue are not drawn or updated. Every once in a while, the update method removes them from the queue and adds them to gameObjects
     private Map<Brick, Integer> bricks; //stores all the bricks with their durabilities
 
     private MyFrame board;
     private JLabel paddleLabel;
 
-    //TODO update the javadoc to reflect the new input file format
+    //TODO update this javadoc to reflect the new input file format
     /**
      * Initialize the walls, paddle, ball, bricks, and queue of powerups based on input from a file.
      * Every line begins with a string of letters for human readability.
@@ -152,6 +153,15 @@ public class Game implements KeyListener {
         //paddleLabel = new JLabel();
         JPanel contentPane = new JPanel(new BorderLayout());
 
+        //show extra balls in top left
+        for(int x = 1; x < lives; x++){
+            JLabel extraBall = new JLabel();
+            extraBall.setBackground(new Color(224, 210, 160));
+            extraBall.setOpaque(true);
+            extraBall.setBounds(20*x, 20, 8, 8);
+            contentPane.add(extraBall);
+        }
+
         for (int i = 0;i < gameObjects.size();i++){
             if (gameObjects.get(i) instanceof Brick){
                 JLabel brickLabel = new JLabel();
@@ -217,6 +227,7 @@ public class Game implements KeyListener {
         long lastTick = System.currentTimeMillis();
 
         while (!bricks.isEmpty() && lives > 0){
+            //System.out.println(System.currentTimeMillis()); //It takes 1-4 milliseconds to run this loop once
             if(System.currentTimeMillis() - lastFrame > FRAMETIME) {
                 lastFrame = System.currentTimeMillis();
                 drawFrame();
