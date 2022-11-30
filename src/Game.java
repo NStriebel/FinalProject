@@ -78,8 +78,8 @@ public class Game implements KeyListener {
 
         //TODO add a more sophisticated implementation with more randomness
         int numPowers = Integer.parseInt(fileIn.nextLine());
-        lineReader = new Scanner(fileIn.nextLine());
         for(int i=0; i<numPowers; i++){
+            lineReader = new Scanner(fileIn.nextLine());
             String type = lineReader.next();
             powerups.add(new Powerup(type, lineReader.nextInt(), lineReader.nextInt(), 0.25));
         }
@@ -110,7 +110,7 @@ public class Game implements KeyListener {
         //take note of which bricks and powerups need to be removed
         List<Brick> bricksToRemove = new LinkedList<>();
         List<Powerup> powsToRemove = new LinkedList<>();
-        for(Brick thisBrick : bricks.keySet()){//TODO figure out the ConcurrentModificationException
+        for(Brick thisBrick : bricks.keySet()){
             for(Drawable thisObject : gameObjects){
                 if(thisObject instanceof Projectile){
                     int collisionCode = thisBrick.detectCollision((Projectile)thisObject);
@@ -145,8 +145,7 @@ public class Game implements KeyListener {
 
         Random rand = new Random();
 
-        int randNum = rand.nextInt(2);
-        System.out.println(randNum);
+        int randNum = rand.nextInt(1000);
         if (randNum == 1 && !powerups.isEmpty()){
             gameObjects.add(powerups.remove());
         }
@@ -159,6 +158,12 @@ public class Game implements KeyListener {
     public void applyPowerup(String effectName){
         if(effectName.equals("ExtraLife")){
             lives++;
+        }
+        if(effectName.equals("FastPaddle")){
+            paddleSpeed *= 2;
+        }
+        if(effectName.equals("SlowPaddle")){
+            paddleSpeed /= 2;
         }
     }
 
@@ -210,7 +215,7 @@ public class Game implements KeyListener {
                 JLabel powerLabel = new JLabel();
                 powerLabel.setBackground(gameObjects.get(i).getColor());
                 powerLabel.setOpaque(true);
-                powerLabel.setBounds((int)gameObjects.get(i).getxPosition(), (int)gameObjects.get(i).getyPosition(), 2, 2);
+                powerLabel.setBounds((int)gameObjects.get(i).getxPosition(), (int)gameObjects.get(i).getyPosition(), 4, 4);
                 contentPane.add(powerLabel);
             }
 

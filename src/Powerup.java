@@ -21,6 +21,12 @@ public class Powerup extends Projectile{
         if(type.equals("ExtraLife")){
             this.setColor(Color.RED);
         }
+        else if(type.equals("FastPaddle")){
+            this.setColor(Color.YELLOW);
+        }
+        else if(type.equals("SlowPaddle")){
+            this.setColor(Color.BLUE);
+        }
     }
 
     public String getType(){

@@ -5,7 +5,9 @@ Wall 500 50 25 250
 BottomWall 50 500 250 475
 Paddle 10 50 250 450 50 450 0.5
 Brick 10 50 250 150 1
-1
+3
 ExtraLife 100 400
+FastPaddle 100 400
+SlowPaddle 100 400
 1
 Ball 4 250 250 0 0.5
