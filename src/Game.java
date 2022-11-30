@@ -130,6 +130,13 @@ public class Game implements KeyListener {
         for(Brick thisBrick : toRemove){
             bricks.remove(thisBrick);
         }
+
+        Random rand = new Random();
+        int randNum = rand.nextInt(2);
+        System.out.println(randNum);
+        if (randNum == 1 && !powerups.isEmpty()){
+            gameObjects.add(powerups.remove());
+        }
     }
 
     /**
