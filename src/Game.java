@@ -30,7 +30,9 @@ public class Game implements KeyListener {
     //TODO update this javadoc to reflect the new input file format
     /**
      * Initialize the walls, paddle, ball, bricks, and queue of powerups based on input from a file.
-     * Every line begins with a string of letters for human readability.
+     * Every object line begins with a string of letters for human readability.
+     * The first line contains the total number of brick objects to be initialized
+     * For bricks, the line-beginning string may be an element of the set {Wall, BottomWall, Paddle}. If it is not an element of that set, the brick is initialized as a normal brick.
      * The first four lines of the file contain the space-separated information needed to initialize the walls, int height, int width, double xPosition, double yPosition.
      * The fifth line contains the same information for the paddle, with the addition of two additional integers and a double, the integers are for the left and right boundaries of the play area and the double is for the paddle's starting speed.
      * The sixth line that contains only an integer, which we will call n, which represents the number of bricks to be initialized.
@@ -78,7 +80,7 @@ public class Game implements KeyListener {
         int numPowers = Integer.parseInt(fileIn.nextLine());
         for(int i=0; i<numPowers; i++){
             String type = fileIn.nextLine();
-            powerups.add(new Powerup(type, 0, 25, 5));
+            powerups.add(new Powerup(type, 0, 25, 0.25));
         }
 
         int numBalls = Integer.parseInt(fileIn.nextLine());
