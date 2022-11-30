@@ -133,6 +133,7 @@ public class Game implements KeyListener {
         }
 
         Random rand = new Random();
+
         int randNum = rand.nextInt(2);
         System.out.println(randNum);
         if (randNum == 1 && !powerups.isEmpty()){
