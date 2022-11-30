@@ -107,14 +107,15 @@ public class Game implements KeyListener {
         }
 
         //loop through all the bricks looking for collisions.
-        //take note of which bricks need to be removed
-        List<Brick> toRemove = new LinkedList<>();
+        //take note of which bricks and powerups need to be removed
+        List<Brick> bricksToRemove = new LinkedList<>();
+        List<Powerup> powsToRemove = new LinkedList<>();
         for(Brick thisBrick : bricks.keySet()){//TODO figure out the ConcurrentModificationException
             for(Drawable thisObject : gameObjects){
                 if(thisObject instanceof Projectile){
                     int collisionCode = thisBrick.detectCollision((Projectile)thisObject);
                     if(collisionCode > 0){ //if they actually collide
-                        thisBrick.collide((Projectile)thisObject, collisionCode);// TODO make sure this calls the paddle collide method if the Brick is a paddle
+                        thisBrick.collide((Projectile)thisObject, collisionCode);
 
                         if(thisObject instanceof Ball) {
                             bricks.put(thisBrick, bricks.get(thisBrick) - 1);//decrease the durability
@@ -122,6 +123,7 @@ public class Game implements KeyListener {
 
                         if(thisObject instanceof Powerup && thisBrick instanceof Paddle){
                             applyPowerup(((Powerup)thisObject).getType()); //if a powerup collides with the paddle, apply the powerup's effect.
+                            powsToRemove.add( (Powerup)thisObject);
                         }
                     }
                 }
@@ -129,13 +131,16 @@ public class Game implements KeyListener {
 
             //Note the bricks whose durability is gone in order to remove them once this loop is done
             if(bricks.get(thisBrick) <= 0){
-                toRemove.add(thisBrick);
+                bricksToRemove.add(thisBrick);
             }
         }
         //Java doesn't like it when you modify a collection while looping through it
         //here's the workaround for removing bricks
-        for(Brick thisBrick : toRemove){
+        for(Brick thisBrick : bricksToRemove){
             bricks.remove(thisBrick);
+        }
+        for(Powerup thisPow : powsToRemove){
+            gameObjects.remove(thisPow);
         }
 
         Random rand = new Random();
@@ -152,7 +157,7 @@ public class Game implements KeyListener {
      * @param effectName the name of the powerup to be applied. Currently supported powerups include "Extra Life"
      */
     public void applyPowerup(String effectName){
-        if(effectName.equals("Extra Life")){
+        if(effectName.equals("ExtraLife")){
             lives++;
         }
     }
