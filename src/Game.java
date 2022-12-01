@@ -1,3 +1,5 @@
+import jdk.swing.interop.SwingInterOpUtils;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.KeyEvent;
@@ -12,15 +14,15 @@ import java.util.List;
  */
 public class Game implements KeyListener {
     private final int FRAMERATE = 60; //the number of frames to draw per second
-    private final int FRAMETIME = (1/FRAMERATE) * 1000; //the number of milliseconds to draw a single frame
-    private final int TICKRATE = 50;
-    private final int TICKTIME = (1/TICKRATE) * 1000;
+    private final double FRAMETIME = (1.0/FRAMERATE) * 1000; //the number of milliseconds to draw a single frame
+    private final int TICKRATE = 100;
+    private final double TICKTIME = (1.0/TICKRATE) * 1000;
+    private final int POWERUPFREQ = 4000; //a larger number makes powerups less frequent
 
     private static int lives;
     private double paddleSpeed;
 
     private List<Drawable> gameObjects; //the walls are just giant bricks that get put in this List
-    //TODO implement powerups
     private Queue<Powerup> powerups; //the powerups in the queue are not drawn or updated. Every once in a while, the update method removes them from the queue and adds them to gameObjects
     private Map<Brick, Integer> bricks; //stores all the bricks with their durabilities
 
@@ -43,6 +45,9 @@ public class Game implements KeyListener {
      * This is followed by p lines, one for each ball with int radius, double xPosition, double yPosition, double xVelocity, double yVelocity.
      */
     public Game(String filename) throws FileNotFoundException {
+        System.out.println("Frametime is " + FRAMETIME);
+        System.out.println("Ticktime is " + TICKTIME);
+
         lives = 3;
         gameObjects = new ArrayList<>();
         powerups = new LinkedList<>();
@@ -145,7 +150,7 @@ public class Game implements KeyListener {
 
         Random rand = new Random();
 
-        int randNum = rand.nextInt(1000);
+        int randNum = rand.nextInt(POWERUPFREQ);
         if (randNum == 1 && !powerups.isEmpty()){
             gameObjects.add(powerups.remove());
         }
@@ -254,11 +259,13 @@ public class Game implements KeyListener {
             //System.out.println(System.currentTimeMillis()); //It takes 1-4 milliseconds to run this loop once
             if(System.currentTimeMillis() - lastFrame > FRAMETIME) {
                 lastFrame = System.currentTimeMillis();
-                drawFrame();
+                drawFrame(); //this takes 1-4 ms
+                //System.out.println("Frame at " + System.currentTimeMillis() + " took " + (System.currentTimeMillis() - lastFrame));
             }
-            if(System.currentTimeMillis() - lastTick > TICKTIME){
+            if(System.currentTimeMillis() - lastTick > TICKTIME) {
                 lastTick = System.currentTimeMillis();
-                update();
+                update(); //this takes almost no time
+                //System.out.println("Tick at " + System.currentTimeMillis() + " took " + (System.currentTimeMillis() - lastTick));
             }
         }
 

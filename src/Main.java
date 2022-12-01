@@ -13,6 +13,7 @@ public class Main {
         }
         catch (FileNotFoundException e){
             System.out.println("That file was not found.");
+            return;
         }
         catch(Exception e){
 
