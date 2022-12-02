@@ -50,10 +50,18 @@ public class Drawable {
         this.yPosition = yPosition;
     }
 
+    /**
+     * This method retrieves the velocity in the x direction of the Drawable object.
+     * @return the velocity in the x direction of the Drawable object.
+     */
     public double getxVelocity() {
         return xVelocity;
     }
 
+    /**
+     * This method sets the velocity in the x direction of the Drawable object.
+     * @param xVelocity
+     */
     public void setxVelocity(double xVelocity) {
         this.xVelocity = xVelocity;
     }
