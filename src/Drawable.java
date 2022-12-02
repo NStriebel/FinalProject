@@ -10,6 +10,15 @@ public class Drawable {
     private double yVelocity;
     private Color color;
 
+    /**
+     * This constructor takes in the x position, the y position, the velocities in the x and y directions
+     * and the color of the object to initialize a Drawable object.
+     * @param xPos
+     * @param yPos
+     * @param xVel
+     * @param yVel
+     * @param col
+     */
     public Drawable(double xPos, double yPos, double xVel, double yVel, Color col){
         this.xPosition = xPos;
         this.yPosition = yPos;
