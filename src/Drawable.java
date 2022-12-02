@@ -13,11 +13,11 @@ public class Drawable {
     /**
      * This constructor takes in the x position, the y position, the velocities in the x and y directions
      * and the color of the object to initialize a Drawable object.
-     * @param xPos
-     * @param yPos
-     * @param xVel
-     * @param yVel
-     * @param col
+     * @param xPos the x position of the Drawable object.
+     * @param yPos the y position of the Drawable object.
+     * @param xVel the velocity in the x direction of the Drawable object.
+     * @param yVel the velocity in the y direction of the Drawable object.
+     * @param col the color of the Drawable object.
      */
     public Drawable(double xPos, double yPos, double xVel, double yVel, Color col){
         this.xPosition = xPos;
@@ -37,7 +37,7 @@ public class Drawable {
 
     /**
      * This method sets the x position of the Drawable objects.
-     * @param xPosition
+     * @param xPosition the x position of the Drawable object.
      */
     public void setxPosition(double xPosition) {
         this.xPosition = xPosition;
@@ -53,7 +53,7 @@ public class Drawable {
 
     /**
      * This method sets the y position of the Drawable Object.
-     * @param yPosition
+     * @param yPosition the y position of the Drawable object.
      */
     public void setyPosition(double yPosition) {
         this.yPosition = yPosition;
@@ -69,7 +69,7 @@ public class Drawable {
 
     /**
      * This method sets the velocity in the x direction of the Drawable object.
-     * @param xVelocity
+     * @param xVelocity the velocity in the x direction of the Drawable object.
      */
     public void setxVelocity(double xVelocity) {
         this.xVelocity = xVelocity;
@@ -85,7 +85,7 @@ public class Drawable {
 
     /**
      * This method sets the velocity in the y direction of the Drawable object.
-     * @param yVelocity
+     * @param yVelocity the velocity in the y direction of the Drawable object.
      */
     public void setyVelocity(double yVelocity) {
         this.yVelocity = yVelocity;
@@ -101,7 +101,7 @@ public class Drawable {
 
     /**
      * This method sets the color of the Drawable object.
-     * @param color
+     * @param color the color of the Drawable object.
      */
     public void setColor(Color color) {
         this.color = color;
