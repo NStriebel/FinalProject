@@ -21,6 +21,10 @@ public class Projectile extends Drawable {
         this.radius = radius;
     }
 
+    /**
+     * This method retrieves the radius of the Projectile object.
+     * @return the radius of the Projectile object
+     */
     public int getRadius() {
         return radius;
     }
