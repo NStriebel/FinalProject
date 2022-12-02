@@ -34,10 +34,18 @@ public class Drawable {
         this.xPosition = xPosition;
     }
 
+    /**
+     * This method returns the y position of the Drawable object.
+     * @return the y position of the Drawable object.
+     */
     public double getyPosition() {
         return yPosition;
     }
 
+    /**
+     * This method sets the y position of the Drawable Object.
+     * @param yPosition
+     */
     public void setyPosition(double yPosition) {
         this.yPosition = yPosition;
     }
