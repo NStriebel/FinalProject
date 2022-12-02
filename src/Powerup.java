@@ -29,6 +29,10 @@ public class Powerup extends Projectile{
         }
     }
 
+    /**
+     * This method retrieves the type of Powerup.
+     * @return the type of Powerup
+     */
     public String getType(){
         return type;
     }
