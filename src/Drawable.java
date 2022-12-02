@@ -82,10 +82,18 @@ public class Drawable {
         this.yVelocity = yVelocity;
     }
 
+    /**
+     * This method retrieves the color of the Drawable object.
+     * @return the color of the Drawable object.
+     */
     public Color getColor() {
         return color;
     }
 
+    /**
+     * This method sets the color of the Drawable object.
+     * @param color
+     */
     public void setColor(Color color) {
         this.color = color;
     }
