@@ -18,10 +18,18 @@ public class Drawable {
         this.color = col;
     }
 
+    /**
+     * This method returns the x position of the objects under Drawable
+     * @return the x position of the objects under Drawable.
+     */
     public double getxPosition() {
         return xPosition;
     }
 
+    /**
+     * This method sets the x position of the Drawable objects.
+     * @param xPosition
+     */
     public void setxPosition(double xPosition) {
         this.xPosition = xPosition;
     }
