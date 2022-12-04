@@ -351,6 +351,9 @@ public class Game implements KeyListener {
         }
     }
 
+    /**
+     * This method subtracts a life whenever the ball hits the lower boundary.
+     */
     public static void loseLife(){
         lives--;
     }
