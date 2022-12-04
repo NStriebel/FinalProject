@@ -29,24 +29,20 @@ public class Game implements KeyListener {
     private MyFrame board;
     private JLabel paddleLabel;
 
-    //TODO update this javadoc to reflect the new input file format
     /**
      * Initialize the walls, paddle, ball, bricks, and queue of powerups based on input from a file.
+     * In the file:
      * Every object line begins with a string of letters for human readability.
-     * The first line contains the total number of brick objects to be initialized
+     * The first line contains only an integer for the total number of brick objects to be initialized
      * For bricks, the line-beginning string may be an element of the set {Wall, BottomWall, Paddle}. If it is not an element of that set, the brick is initialized as a normal brick.
-     * The first four lines of the file contain the space-separated information needed to initialize the walls, int height, int width, double xPosition, double yPosition.
-     * The fifth line contains the same information for the paddle, with the addition of two additional integers and a double, the integers are for the left and right boundaries of the play area and the double is for the paddle's starting speed.
-     * The sixth line that contains only an integer, which we will call n, which represents the number of bricks to be initialized.
-     * After the sixth line are n lines, one for each brick. They contain the same parameters as the walls and paddle, with the addition of the brick's starting durability as an int.
-     * After those is another line with only a number, m, to represent the number of different types of powerups to be generated.
-     * For the next m lines, the line contains only the name of the powerup to be included. If an invalid name is entered, powerups with no effect will be generated.
-     * Then is another line with the number of balls to be initialized, p.
-     * This is followed by p lines, one for each ball with int radius, double xPosition, double yPosition, double xVelocity, double yVelocity.
+     * Every brick's type must be followed by four space-separated integers, height, width, xPosition, and yPosition.
+     * The Paddle has two additional integers and a double, representing the minimum x-position of its left side, the maximum x-position of its right side, and the paddle's initial speed.
+     * A regular brick has an additional integer between 1 and 3 inclusive, which represents its starting durability.
+     * This is followed by a line with an integer for the number of powerups to be initialized.
+     * Each powerup line contains a string with the name of the powerup, a value from the set {ExtraLife, SlowPaddle, FastPaddle} followed by two integers: the minimum and maximum x-Positions as bounds for where the powerup will be randomly spawned.
+     * Next is a line with an integer for the number of balls to be initialized, then one line for each ball with int radius, double xPosition, double yPosition, double xVelocity, and double yVelocity.
      */
     public Game(String filename) throws FileNotFoundException {
-        System.out.println("Frametime is " + FRAMETIME);
-        System.out.println("Ticktime is " + TICKTIME);
 
         lives = 3;
         gameObjects = new ArrayList<>();
@@ -81,7 +77,6 @@ public class Game implements KeyListener {
             }
         }
 
-        //TODO add a more sophisticated implementation with more randomness
         int numPowers = Integer.parseInt(fileIn.nextLine());
         for(int i=0; i<numPowers; i++){
             lineReader = new Scanner(fileIn.nextLine());
@@ -116,6 +111,8 @@ public class Game implements KeyListener {
         List<Brick> bricksToRemove = new LinkedList<>();
         List<Powerup> powsToRemove = new LinkedList<>();
         for(Brick thisBrick : bricks.keySet()){
+            int durability = bricks.get(thisBrick);
+
             for(Drawable thisObject : gameObjects){
                 if(thisObject instanceof Projectile){
                     int collisionCode = thisBrick.detectCollision((Projectile)thisObject);
@@ -123,7 +120,8 @@ public class Game implements KeyListener {
                         thisBrick.collide((Projectile)thisObject, collisionCode);
 
                         if(thisObject instanceof Ball) {
-                            bricks.put(thisBrick, bricks.get(thisBrick) - 1);//decrease the durability
+                            durability -= 1;
+                            bricks.put(thisBrick, durability);//decrease the durability
                         }
 
                         if(thisObject instanceof Powerup && thisBrick instanceof Paddle){
@@ -134,9 +132,12 @@ public class Game implements KeyListener {
                 }
             }
 
-            //Note the bricks whose durability is gone in order to remove them once this loop is done
-            if(bricks.get(thisBrick) <= 0){
+            //Note the bricks whose durability is zero in order to remove them once this loop is done
+            if(durability <= 0){
                 bricksToRemove.add(thisBrick);
+            } //if it's a regular brick with durability left, change its color based on its durability
+            else if(thisBrick.getClass() == (new Brick(0,0,0,0,new Color(0,0,0))).getClass()){
+                    thisBrick.setColor(new Color(20*(4-durability), 60*(4-durability), 0, 255));
             }
         }
         //Java doesn't like it when you modify a collection while looping through it
