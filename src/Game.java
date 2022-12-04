@@ -330,6 +330,12 @@ public class Game implements KeyListener {
         }
     }
 
+    /**
+     * This method reads an input whenever a key on the keyboard is released. If the key released
+     * is the letter 'a', the method will stop the paddle from moving in the left direction.
+     * If the key released is the letter 'b', the method will stop moving the paddle in the right direction.
+     * @param e they key that is released.
+     */
     @Override
     public void keyReleased(KeyEvent e) {
         switch (e.getKeyChar()){
