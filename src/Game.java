@@ -24,7 +24,7 @@ public class Game implements KeyListener {
 
     private List<Drawable> gameObjects; //the walls are just giant bricks that get put in this List
     private Queue<Powerup> powerups; //the powerups in the queue are not drawn or updated. Every once in a while, the update method removes them from the queue and adds them to gameObjects
-    private Map<Brick, Integer> bricks; //stores all the bricks with their durabilities
+    private static Map<Brick, Integer> bricks; //stores all the bricks with their durabilities
 
     private MyFrame board;
     private JLabel paddleLabel;
@@ -34,7 +34,10 @@ public class Game implements KeyListener {
      * Initialize the walls, paddle, ball, bricks, and queue of powerups based on input from a file.
      * Every object line begins with a string of letters for human readability.
      * The first line contains the total number of brick objects to be initialized
-     * For bricks, the line-beginning string may be an element of the set {Wall, BottomWall, Paddle}. If it is not an element of that set, the brick is initialized as a normal brick.
+     * For bricks, the line-beginning string may be an element of the set {Wall, BottomWall, Paddle, ChaosBrick}. If it is not an element of that set, the brick is initialized as a normal brick.
+     * Every brick's line starts with four integers for height, width, xPosition, and yPosition.
+     * The paddle has an additional two integers and a double
+     *
      * The first four lines of the file contain the space-separated information needed to initialize the walls, int height, int width, double xPosition, double yPosition.
      * The fifth line contains the same information for the paddle, with the addition of two additional integers and a double, the integers are for the left and right boundaries of the play area and the double is for the paddle's starting speed.
      * The sixth line that contains only an integer, which we will call n, which represents the number of bricks to be initialized.
@@ -45,9 +48,6 @@ public class Game implements KeyListener {
      * This is followed by p lines, one for each ball with int radius, double xPosition, double yPosition, double xVelocity, double yVelocity.
      */
     public Game(String filename) throws FileNotFoundException {
-        System.out.println("Frametime is " + FRAMETIME);
-        System.out.println("Ticktime is " + TICKTIME);
-
         lives = 3;
         gameObjects = new ArrayList<>();
         powerups = new LinkedList<>();
@@ -75,6 +75,9 @@ public class Game implements KeyListener {
             }
             else if(brickType.equals("BottomWall")){
                 gameObjects.add(new DeathBrick(lineReader.nextInt(), lineReader.nextInt(), lineReader.nextDouble(), lineReader.nextDouble(), new Color(0, 0, 0, 255)));
+            }
+            else if(brickType.equals("ChaosBrick")){
+                bricks.put(new ChaosBrick(lineReader.nextInt(), lineReader.nextInt(), lineReader.nextDouble(), lineReader.nextDouble(), new Color(0, 255, 17, 255)), lineReader.nextInt());
             }
             else {
                 bricks.put(new Brick(lineReader.nextInt(), lineReader.nextInt(), lineReader.nextDouble(), lineReader.nextDouble(), new Color(25, 72, 1, 255)), lineReader.nextInt());
@@ -123,7 +126,16 @@ public class Game implements KeyListener {
                         thisBrick.collide((Projectile)thisObject, collisionCode);
 
                         if(thisObject instanceof Ball) {
-                            bricks.put(thisBrick, bricks.get(thisBrick) - 1);//decrease the durability
+
+                                for(Brick brick1 : bricks.keySet()){
+                                    System.out.println(brick1.hashCode());
+                                }
+                            System.out.println("thisBrick:" + thisBrick.hashCode());
+
+
+                                Integer durability = bricks.get(thisBrick);
+                                Integer newDura = durability - 1;
+                                bricks.put(thisBrick, newDura);//decrease the durability
                         }
 
                         if(thisObject instanceof Powerup && thisBrick instanceof Paddle){
@@ -356,5 +368,43 @@ public class Game implements KeyListener {
      */
     public static void loseLife(){
         lives--;
+    }
+
+    /**
+     * This method moves every brick in the bricks map to a random location
+     * It is only called by the collide method in ChaosBrick
+     */
+    public static void randomizeBricks(){
+        Random rand = new Random();
+        double xMax = 0, xMin = 0, yMax = 0, yMin = 0;
+        boolean firstBrick = true;
+
+        for(Brick thisBrick : bricks.keySet()){
+            double thisX = thisBrick.getxPosition();
+            double thisY = thisBrick.getyPosition();
+
+            if(firstBrick){
+                xMax = thisX+10;
+                xMin = thisX-10;
+                yMax = thisY+10;
+                yMin = thisY-10;
+                firstBrick = false;
+            }
+            if(thisX > xMax){
+                xMax = thisX;
+            }
+            if(thisX < xMin){
+                xMin = thisX;
+            }
+            if(thisY > yMax){
+                yMax = thisY;
+            }
+            if(thisY < yMin){
+                yMin = thisY;
+            }
+
+            thisBrick.setxPosition(rand.nextInt((int)xMin, (int)xMax));
+            thisBrick.setyPosition(rand.nextInt((int)yMin, (int)yMax));
+        }
     }
 }

@@ -16,7 +16,7 @@ public class Main {
             return;
         }
         catch(Exception e){
-
+            e.printStackTrace();
         }
     }
 }
