@@ -2,6 +2,9 @@ import javax.swing.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
+/**
+ * This class creates the window that the game will be played in.
+ */
 public class MyFrame extends JFrame{
 
     /**
