@@ -302,6 +302,12 @@ public class Game implements KeyListener {
         }*/
     }
 
+    /**
+     * This method reads an input whenever a key on the keyboard is pressed. If the key pressed
+     * is the letter 'a', the method will move the paddle in the left direction. If the key pressed
+     * is the letter 'b', the method will move the paddle in the right direction.
+     * @param e the key that is pressed.
+     */
     @Override
     public void keyPressed(KeyEvent e) {
         switch (e.getKeyChar()){
