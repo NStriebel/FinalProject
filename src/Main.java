@@ -1,7 +1,13 @@
 import java.io.FileNotFoundException;
 import java.util.Scanner;
 
+/**
+ * A class that contains only a main method for running a game of breakout
+ */
 public class Main {
+    /**
+     * Uses console input to have the user enter a filename, then initialize a new game from that file and call its main method.
+     */
     public static void main(String[] args) {
         try{
             Scanner scan = new Scanner(System.in);
