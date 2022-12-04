@@ -37,7 +37,7 @@ public class Game implements KeyListener {
      * For bricks, the line-beginning string may be an element of the set {Wall, BottomWall, Paddle}. If it is not an element of that set, the brick is initialized as a normal brick.
      * Every brick's type must be followed by four space-separated integers, height, width, xPosition, and yPosition.
      * The Paddle has two additional integers and a double, representing the minimum x-position of its left side, the maximum x-position of its right side, and the paddle's initial speed.
-     * A regular brick has an additional integer between 1 and 3 inclusive, which represents its starting durability.
+     * A regular brick has an additional integer between 1 and 4 inclusive, which represents its starting durability.
      * This is followed by a line with an integer for the number of powerups to be initialized.
      * Each powerup line contains a string with the name of the powerup, a value from the set {ExtraLife, SlowPaddle, FastPaddle} followed by two integers: the minimum and maximum x-Positions as bounds for where the powerup will be randomly spawned.
      * Next is a line with an integer for the number of balls to be initialized, then one line for each ball with int radius, double xPosition, double yPosition, double xVelocity, and double yVelocity.
@@ -137,7 +137,7 @@ public class Game implements KeyListener {
                 bricksToRemove.add(thisBrick);
             } //if it's a regular brick with durability left, change its color based on its durability
             else if(thisBrick.getClass() == (new Brick(0,0,0,0,new Color(0,0,0))).getClass()){
-                    thisBrick.setColor(new Color(20*(4-durability), 60*(4-durability), 0, 255));
+                    thisBrick.setColor(new Color(20*durability, 60*durability, 0, 255));
             }
         }
         //Java doesn't like it when you modify a collection while looping through it
