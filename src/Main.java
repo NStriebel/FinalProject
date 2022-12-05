@@ -10,9 +10,16 @@ public class Main {
      */
     public static void main(String[] args) {
         try{
-            Scanner scan = new Scanner(System.in);
-            System.out.print("Enter the name of the board file: ");
-            String filename = scan.next();
+            String filename;
+
+            if(args.length > 0){
+                filename = args[0];
+            }
+            else {
+                Scanner scan = new Scanner(System.in);
+                System.out.print("Enter the name of the board file: ");
+                filename = scan.next();
+            }
 
             Game myGame = new Game(filename);
             myGame.main();
