@@ -21,6 +21,7 @@ public class Game implements KeyListener {
 
     private static int lives;
     private double paddleSpeed;
+    private boolean paused = false;
 
     private List<Drawable> gameObjects; //the walls are just giant bricks that get put in this List
     private Queue<Powerup> powerups; //the powerups in the queue are not drawn or updated. Every once in a while, the update method removes them from the queue and adds them to gameObjects
@@ -258,12 +259,12 @@ public class Game implements KeyListener {
 
         while (!bricks.isEmpty() && lives > 0){
             //System.out.println(System.currentTimeMillis()); //It takes 1-4 milliseconds to run this loop once
-            if(System.currentTimeMillis() - lastFrame > FRAMETIME) {
+            if(System.currentTimeMillis() - lastFrame > FRAMETIME && !paused) {
                 lastFrame = System.currentTimeMillis();
                 drawFrame(); //this takes 1-4 ms
                 //System.out.println("Frame at " + System.currentTimeMillis() + " took " + (System.currentTimeMillis() - lastFrame));
             }
-            if(System.currentTimeMillis() - lastTick > TICKTIME) {
+            if(System.currentTimeMillis() - lastTick > TICKTIME && !paused) {
                 lastTick = System.currentTimeMillis();
                 update(); //this takes almost no time
                 //System.out.println("Tick at " + System.currentTimeMillis() + " took " + (System.currentTimeMillis() - lastTick));
@@ -287,24 +288,9 @@ public class Game implements KeyListener {
      */
     @Override
     public void keyTyped(KeyEvent e) {
-        /*switch (e.getKeyChar()){
-            case 'a':
-                for (Drawable thisObj : gameObjects){
-                    if (thisObj instanceof Paddle){
-                        thisObj.setxPosition(thisObj.getxPosition() - paddleSpeed);
-                        break;
-                    }
-                }
-                break;
-            case 'd':
-                for (Drawable thisObj : gameObjects){
-                    if (thisObj instanceof Paddle){
-                        thisObj.setxPosition(thisObj.getxPosition() + paddleSpeed);
-                        break;
-                    }
-                }
-               break;
-        }*/
+        if(e.getKeyChar() == 'p'){
+            paused = !paused;
+        }
     }
 
     /**
@@ -315,23 +301,22 @@ public class Game implements KeyListener {
      */
     @Override
     public void keyPressed(KeyEvent e) {
-        switch (e.getKeyChar()){
+        switch (e.getKeyChar()) {
             case 'a':
-                for (Drawable thisObj : gameObjects){
-                    if (thisObj instanceof Paddle){
-                        thisObj.setxVelocity(-1*paddleSpeed);
+                for (Drawable thisObj : gameObjects) {
+                    if (thisObj instanceof Paddle) {
+                        thisObj.setxVelocity(-1 * paddleSpeed);
                         break;
                     }
                 }
                 break;
             case 'd':
-                for (Drawable thisObj : gameObjects){
-                    if (thisObj instanceof Paddle){
+                for (Drawable thisObj : gameObjects) {
+                    if (thisObj instanceof Paddle) {
                         thisObj.setxVelocity(paddleSpeed);
                         break;
                     }
                 }
-                break;
         }
     }
 
@@ -357,7 +342,7 @@ public class Game implements KeyListener {
     }
 
     /**
-     * This method subtracts a life whenever the ball hits the lower boundary.
+     * This method subtracts a life. It is called whenever the ball hits the lower boundary.
      */
     public static void loseLife(){
         lives--;
