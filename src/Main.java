@@ -11,7 +11,7 @@ public class Main {
      */
     public static void main(String[] args) {
         try{
-            String filename;
+            String filename = "ToughPyramid.txt";
             String instructionsFileName = "Instructions.txt";
 
             if(args.length >= 2){
@@ -25,6 +25,8 @@ public class Main {
                 Scanner scan = new Scanner(System.in);
                 System.out.print("Enter the name of the board file: ");
                 filename = scan.next();
+                System.out.print("Enter the name of the instructions file: ");
+                instructionsFileName = scan.next();
             }
 
             Scanner instructPrinter = new Scanner(new File(instructionsFileName));
