@@ -1,0 +1,8 @@
+
+Welcome to Brickbreaker!
+Break all of the bricks to win, but don't let the ball hit the bottom of the screen three times
+Press the D and A keys to move the paddle back and forth, and the P key to pause
+
+The red powerup gives you an extra life
+The yellow powerup speeds your paddle up
+The blue powerup slows your paddle down

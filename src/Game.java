@@ -21,7 +21,7 @@ public class Game implements KeyListener {
 
     private static int lives;
     private double paddleSpeed;
-    private boolean paused = false;
+    private boolean paused = true;
 
     private List<Drawable> gameObjects; //the walls are just giant bricks that get put in this List
     private Queue<Powerup> powerups; //the powerups in the queue are not drawn or updated. Every once in a while, the update method removes them from the queue and adds them to gameObjects
@@ -259,7 +259,7 @@ public class Game implements KeyListener {
 
         while (!bricks.isEmpty() && lives > 0){
             //System.out.println(System.currentTimeMillis()); //It takes 1-4 milliseconds to run this loop once
-            if(System.currentTimeMillis() - lastFrame > FRAMETIME && !paused) {
+            if(System.currentTimeMillis() - lastFrame > FRAMETIME) {
                 lastFrame = System.currentTimeMillis();
                 drawFrame(); //this takes 1-4 ms
                 //System.out.println("Frame at " + System.currentTimeMillis() + " took " + (System.currentTimeMillis() - lastFrame));
@@ -306,6 +306,7 @@ public class Game implements KeyListener {
                 for (Drawable thisObj : gameObjects) {
                     if (thisObj instanceof Paddle) {
                         thisObj.setxVelocity(-1 * paddleSpeed);
+                        paused = false;
                         break;
                     }
                 }
@@ -314,6 +315,7 @@ public class Game implements KeyListener {
                 for (Drawable thisObj : gameObjects) {
                     if (thisObj instanceof Paddle) {
                         thisObj.setxVelocity(paddleSpeed);
+                        paused = false;
                         break;
                     }
                 }

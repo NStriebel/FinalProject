@@ -1,3 +1,4 @@
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
 
@@ -11,14 +12,24 @@ public class Main {
     public static void main(String[] args) {
         try{
             String filename;
+            String instructionsFileName = "Instructions.txt";
 
-            if(args.length > 0){
+            if(args.length >= 2){
+                instructionsFileName = args[1];
+                filename = args[0];
+            }
+            else if(args.length == 1){
                 filename = args[0];
             }
             else {
                 Scanner scan = new Scanner(System.in);
                 System.out.print("Enter the name of the board file: ");
                 filename = scan.next();
+            }
+
+            Scanner instructPrinter = new Scanner(new File(instructionsFileName));
+            while(instructPrinter.hasNextLine()){
+                System.out.println(instructPrinter.nextLine());
             }
 
             Game myGame = new Game(filename);
