@@ -283,8 +283,7 @@ public class Game implements KeyListener {
     }
 
     /**
-     * This method was deprecated and removed, but its signiture is still needed to implement keyListener.
-     * @param e the key that was pressed
+     * Listen for the p key to be pressed. When it's pressed, toggle whether the game is paused
      */
     @Override
     public void keyTyped(KeyEvent e) {

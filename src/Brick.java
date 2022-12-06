@@ -73,7 +73,7 @@ public class Brick extends Drawable {
 
     /**
      * If a collision is detected between a brick and a projectile, call this method on the brick and send it the projectile to perform the collision operation. If a ball hits the top or bottom, invert the y-component of its velocity. If it hits the right or left, invert the x-component. Allow powerups to pass through.
-     * @param incoming the projectile that
+     * @param incoming the projectile that has collided with this brick
      * @param collisionSide 1 for top, 2 for right, 3 for bottom, 4 for left
      */
     public void collide(Projectile incoming, int collisionSide){
