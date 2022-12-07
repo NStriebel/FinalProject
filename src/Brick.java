@@ -93,10 +93,10 @@ public class Brick extends Drawable {
         }
     }
 
-    @Override
-    public int hashCode(){
-        return (int)(height*13+width*7+getxPosition()*17+getyPosition()*19);
-    }
+//    @Override
+//    public int hashCode(){
+//        return (int)(height*13+width*7+getxPosition()*17+getyPosition()*19);
+//    }
 
     @Override
     public boolean equals(Object other){

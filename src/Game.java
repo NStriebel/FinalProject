@@ -126,14 +126,8 @@ public class Game implements KeyListener {
                         thisBrick.collide((Projectile)thisObject, collisionCode);
 
                         if(thisObject instanceof Ball) {
-
-                                for(Brick brick1 : bricks.keySet()){
-                                    System.out.println(brick1.hashCode());
-                                }
-                            System.out.println("thisBrick:" + thisBrick.hashCode());
-
-
-                                Integer durability = bricks.get(thisBrick);
+                            //System.out.println("thisBrick:" + thisBrick.hashCode());
+                               Integer durability = bricks.get(thisBrick);
                                 Integer newDura = durability - 1;
                                 bricks.put(thisBrick, newDura);//decrease the durability
                         }
@@ -403,8 +397,10 @@ public class Game implements KeyListener {
                 yMin = thisY;
             }
 
-            thisBrick.setxPosition(rand.nextInt((int)xMin, (int)xMax));
-            thisBrick.setyPosition(rand.nextInt((int)yMin, (int)yMax));
+            if(!(thisBrick instanceof Paddle) && thisBrick.getWidth() < 400 && thisBrick.getHeight() < 400 ) {
+                thisBrick.setxPosition(rand.nextInt((int) xMin, (int) xMax));
+                thisBrick.setyPosition(rand.nextInt((int) yMin, (int) yMax));
+            }
         }
     }
 }

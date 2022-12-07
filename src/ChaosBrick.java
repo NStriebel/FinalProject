@@ -12,10 +12,10 @@ public class ChaosBrick extends Brick{
         Game.randomizeBricks();
     }
 
-    @Override
-    public int hashCode(){
-        return 13*this.getHeight() + 17*(int)this.getxPosition()+7*(int)this.getyPosition();
-    }
+//    @Override
+//    public int hashCode(){
+//        return 13*this.getHeight() + 17*(int)this.getxPosition()+7*(int)this.getyPosition();
+//    }
 
     @Override
     public boolean equals(Object other){
